@@ -37,11 +37,15 @@ public class TempServiceImpl extends EgovAbstractServiceImpl implements TempServ
 	}
 	
 	public String insertTemp(TempVO vo) throws Exception {
+		/*
 		String id = idgenService.getNextStringId();
 		vo.setTempId(id);
 		tempMapper.insertTemp(vo);
 		
 		return id;
+		*  /
+		
+		return null;
 	}
 	
 	//임시데이터 목록 가져오기
@@ -69,5 +73,6 @@ public class TempServiceImpl extends EgovAbstractServiceImpl implements TempServ
 	public TempVO selectTemp(TempVO vo) throws Exception {
 		return tempDAO.selectTemp(vo);
 	}
+	
 	
 }

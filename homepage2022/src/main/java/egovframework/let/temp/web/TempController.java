@@ -29,7 +29,7 @@ public class TempController {
 	
 	@Resource(name = "tempService")
     private TempService tempService;
-
+	
 	//임시데이터 가져오기
 	@RequestMapping(value = "/temp/select.do")
 	public String select(@ModelAttribute("searchVO") TempVO searchVO, HttpServletRequest request, ModelMap model) throws Exception{
@@ -37,7 +37,6 @@ public class TempController {
 		model.addAttribute("result", result);
 		return "temp/TempSelect";
 	}
-	
 	
 	/*
 	//임시데이터 등록/수정
