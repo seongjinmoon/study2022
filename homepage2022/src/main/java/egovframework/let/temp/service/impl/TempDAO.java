@@ -12,5 +12,6 @@ public class TempDAO extends EgovAbstractDAO {
     public TempVO selectTemp(TempVO boardVO) throws Exception {
     	return (TempVO)select("TempDAO.selectTemp", boardVO);
     }
-
+    
+    
 }
