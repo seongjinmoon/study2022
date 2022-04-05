@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 public class TempDAO extends EgovAbstractDAO {
 
     
-    public TempVO selectTemp(TempVO boardVO) throws Exception {
-    	return (TempVO)select("TempDAO.selectTemp", boardVO);
+    public TempVO selectTemp(TempVO vo) throws Exception {
+    	return (TempVO)select("TempDAO.selectTemp", vo);
     }
     
     
