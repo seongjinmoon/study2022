@@ -29,7 +29,7 @@ public class TempController {
 	
 	@Resource(name = "tempService")
     private TempService tempService;
-	
+	/*
 	//임시데이터 가져오기
 	@RequestMapping(value = "/temp/select.do")
 	public String select(@ModelAttribute("searchVO") TempVO searchVO, HttpServletRequest request, ModelMap model) throws Exception{
@@ -37,8 +37,8 @@ public class TempController {
 		model.addAttribute("result", result);
 		return "temp/TempSelect";
 	}
+	*/
 	
-	/*
 	//임시데이터 등록/수정
 	@RequestMapping(value = "/temp/tempRegist.do")
 	public String tempRegist(@ModelAttribute("searchVO") TempVO tempVO, HttpServletRequest request, ModelMap model) throws Exception{
@@ -54,13 +54,20 @@ public class TempController {
 	//임시데이터 등록하기
 	@RequestMapping(value = "/temp/insert.do")
 	public String insert(@ModelAttribute("searchVO") TempVO searchVO, HttpServletRequest request, ModelMap model) throws Exception{
-		String tempId = tempService.insertTemp(searchVO);
+		tempService.insertTemp(searchVO);
+		
+		//String tempId = tempService.insertTemp(searchVO);
 		return "forward:/temp/selectList.do";
 	}
 	
 	//임시데이터 목록 가져오기
 	@RequestMapping(value = "/temp/selectList.do")
 	public String selectList(@ModelAttribute("searchVO") TempVO searchVO,  HttpServletRequest request, ModelMap model) throws Exception{
+		//1차
+		List<EgovMap> resultList = tempService.selectTempList(searchVO);
+		model.addAttribute("resultList", resultList);
+		
+		/* 2차 - 페이징 작업 시
 		PaginationInfo paginationInfo = new PaginationInfo();
 
 		paginationInfo.setCurrentPageNo(searchVO.getPageIndex());
@@ -78,7 +85,7 @@ public class TempController {
 		
 		paginationInfo.setTotalRecordCount(totCnt);
 		model.addAttribute("paginationInfo", paginationInfo);
-		
+		*/
 		return "temp/TempSelectList";
 	}
 	
@@ -95,5 +102,5 @@ public class TempController {
 		tempService.deleteTemp(searchVO);
 		return "forward:/temp/selectList.do";
 	}
-	*/
+	
 }

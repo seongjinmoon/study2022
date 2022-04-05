@@ -20,31 +20,32 @@ public class TempServiceImpl extends EgovAbstractServiceImpl implements TempServ
 
     @Resource(name = "propertiesService")
     protected EgovPropertyService propertyService;
-    /*
+    
     @Resource(name="tempMapper")
 	private TempMapper tempMapper;
-    */
+    
     @Resource(name = "tempDAO")
     private TempDAO tempDAO;
     /*
     @Resource(name = "egovTempIdGnrService")
     private EgovIdGnrService idgenService;
     */
-    /*
+    
 	@Override
 	public TempVO selectTemp(TempVO vo) throws Exception {
 		return tempMapper.selectTemp(vo);
 	}
 	
 	public String insertTemp(TempVO vo) throws Exception {
+		tempMapper.insertTemp(vo);
+		
 		/*
 		String id = idgenService.getNextStringId();
 		vo.setTempId(id);
 		tempMapper.insertTemp(vo);
 		
 		return id;
-		*  /
-		
+		*/
 		return null;
 	}
 	
@@ -67,12 +68,12 @@ public class TempServiceImpl extends EgovAbstractServiceImpl implements TempServ
 	public void deleteTemp(TempVO vo) throws Exception{
 		tempMapper.deleteTemp(vo);
 	}
-	*/
-    
+	
+    /*
 	@Override
 	public TempVO selectTemp(TempVO vo) throws Exception {
 		return tempDAO.selectTemp(vo);
 	}
-	
+	*/
 	
 }

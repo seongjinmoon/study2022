@@ -11,7 +11,9 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
+
 ${result.tempVal}
+
 <div class="box-btn">
 	<c:url var="uptUrl" value="/temp/tempRegist.do">
 		<c:param name="tempId" value="${result.tempId}"/>

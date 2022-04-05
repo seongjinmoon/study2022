@@ -18,7 +18,7 @@ a{text-decoration:underline;}
 </style>
 </head>
 <body>
-게시물 총 수 : <c:out value="${paginationInfo.totalRecordCount}"/>건
+<%-- 게시물 총 수 : <c:out value="${paginationInfo.totalRecordCount}"/>건 --%>
 <table>
 	<thead>
 		<tr>
@@ -30,44 +30,14 @@ a{text-decoration:underline;}
 		<c:forEach var="result" items="${resultList }">
 			<tr>
 				<td><c:out value="${result.tempId}"/></td>
-				<td>
-					<c:url var="viewUrl" value="/temp/select.do">
-						<c:param name="tempId" value="${result.tempId}"/>
-					</c:url>
-					<a href="${viewUrl}"><c:out value="${result.tempVal}"/></a>
-				</td>
-				<td>
-					<c:url var="delUrl" value="/temp/delete.do">
-						<c:param name="tempId" value="${result.tempId}"/>
-					</c:url>
-					<a href="${delUrl}" class="btn-del">삭제</a>
-				</td>
+				<td><c:out value="${result.tempVal}"/></td>
 			</tr>
 		</c:forEach>
 	</tbody>
 </table>
-<div id="paging_div">
-	<ul class="paging_align">
-		<c:url var="pageUrl" value="/temp/selectList.do?"/>
-		<c:set var="pagingParam"><c:out value="${pageUrl}"/></c:set>
-	   <ui:pagination paginationInfo="${paginationInfo}" type="image" jsFunction="${pagingParam}" />
-	</ul>
-</div>
 
-<button type="button" id="btn-reg" data-href="/temp/tempRegist.do">등록하기</button>
-<script>
-$(document).ready(function(){
-	$("#btn-reg").click(function(){
-		location.href = $(this).data("href");
-	});
-	
-	$(".btn-del").click(function(){
-		if(!confirm("삭제하시겠습니까?")){
-			return false;
-		}
-	});
-});
-</script>
+<a href="/temp/tempRegist.do">등록하기</a>
+
 </body>
 </html>
 
