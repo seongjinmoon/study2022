@@ -33,7 +33,6 @@
 			<button type="submit">등록</button>
 		</c:otherwise>
 	</c:choose>
-	
 </form>
 </body>
 </html>
