@@ -20,7 +20,8 @@
 		  TEMP_ID
 		  , TEMP_VAL
 		FROM lettemp
-		<!-- LIMIT #{recordCountPerPage} OFFSET #{firstIndex} -->
+		ORDER BY TEMP_ID DESC
+		LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
 	</select>
 	
 	<select id="selectTempListCnt" resultType="java.lang.Integer">
