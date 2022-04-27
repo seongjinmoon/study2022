@@ -144,11 +144,11 @@
 				
 				<c:set var="String" value="Welcome to JSP programming"/>  
 				<c:if test="${fn:startsWith(String, 'Welcome')}">  
-				   <p>String starts with programming<p>  
+				   <p>String starts with programming</p>  
 				</c:if>  
 				  
 				<c:if test="${fn:startsWith(String, 'programming')}">  
-				   <p>String starts with programming<p>  
+				   <p>String starts with programming</p>  
 				</c:if> 
 			</li>
 		</c:when>
@@ -158,11 +158,11 @@
 				
 				<c:set var="String" value="Welcome to JSP programming"/>  
 				<c:if test="${fn:endsWith(String, 'programming')}">  
-				   <p>String ends with programming<p>  
+				   <p>String ends with programming</p>  
 				</c:if>  
 				  
 				<c:if test="${fn:endsWith(String, 'JSP')}">  
-				   <p>String ends with JSP<p>  
+				   <p>String ends with JSP</p>  
 				</c:if> 
 			</li>
 		</c:when>
@@ -234,12 +234,13 @@
 			</li>
 		</c:when>
 		
-		<%-- function tag 설명 --%>
+		<%-- formatting tag 설명 --%>
 		<c:when test="${step eq '20'}">
 			<li>
 				<h3>fmt:formatDate : 문자열의 양쪽 끝에서 공백을 제거</h3>
 				
 				<c:set var="Date" value="<%=new java.util.Date()%>" />
+				${Date}<br/>
 				<fmt:formatDate value="${Date}" pattern="yyyy-MM-dd"/>
 			</li>
 		</c:when>
