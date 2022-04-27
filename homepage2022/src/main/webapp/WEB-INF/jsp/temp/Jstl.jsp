@@ -66,7 +66,7 @@
 				<h4>기본문법 : <br/>
 					&#60;c:choose&#62;<br/>
 						&#60;c:when test="조건문"&#62; 조건 true에 대한 내용 &#60;/c:when&#62;<br/>
-						&#60;c:otherwise>조건에 해당되지 않아서 나오는 내용 &#60;/c:otherwise&#62;<br/>
+						&#60;c:otherwise&#62;조건에 해당되지 않아서 나오는 내용 &#60;/c:otherwise&#62;<br/>
 					&#60;/c:choose&#62;
 				</h4>
 				
