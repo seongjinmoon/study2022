@@ -144,7 +144,7 @@
 				
 				<c:set var="String" value="Welcome to JSP programming"/>  
 				<c:if test="${fn:startsWith(String, 'Welcome')}">  
-				   <p>String starts with programming</p>  
+				   <p>String starts with Welcome</p>  
 				</c:if>  
 				  
 				<c:if test="${fn:startsWith(String, 'programming')}">  
@@ -223,9 +223,9 @@
 		</c:when>
 		<c:when test="${step eq '19'}">
 			<li>
-				<h3>fn:trim() : 문자열의 양쪽 끝에서 공백을 제거</h3>
+				<h3>fn:trim() : 문자열의 양쪽 끝에서 공백을 제거(문자열 사이의 공백은 사라지지 않음)</h3>
 				
-				<c:set var="str1" value="Welcome to JSP        programming         "/>  
+				<c:set var="str1" value="        Welcome to JSP programming         "/>  
 				<p>String-1 Length is : ${fn:length(str1)}</p>  
 				  
 				<c:set var="str2" value="${fn:trim(str1)}" />  
