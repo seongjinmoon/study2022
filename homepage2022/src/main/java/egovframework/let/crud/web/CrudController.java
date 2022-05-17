@@ -28,14 +28,6 @@ public class CrudController {
 	@Resource(name = "crudService")
     private CrudService crudService;
 	
-	//CRUD 가져오기
-	@RequestMapping(value = "/crud/select.do")
-	public String select(@ModelAttribute("searchVO") CrudVO searchVO, HttpServletRequest request, ModelMap model) throws Exception{
-		CrudVO result = crudService.selectCrud(searchVO);
-		model.addAttribute("result", result);
-		return "crud/CrudSelect";
-	}
-	
 	//CRUD 목록 가져오기
 	@RequestMapping(value = "/crud/selectList.do")
 	public String selectList(@ModelAttribute("searchVO") CrudVO searchVO,  HttpServletRequest request, ModelMap model) throws Exception{
@@ -58,6 +50,14 @@ public class CrudController {
 		model.addAttribute("paginationInfo", paginationInfo);
 		
 		return "crud/CrudSelectList";
+	}
+		
+	//CRUD 가져오기
+	@RequestMapping(value = "/crud/select.do")
+	public String select(@ModelAttribute("searchVO") CrudVO searchVO, HttpServletRequest request, ModelMap model) throws Exception{
+		CrudVO result = crudService.selectCrud(searchVO);
+		model.addAttribute("result", result);
+		return "crud/CrudSelect";
 	}
 	
 	//CRUD 등록/수정
