@@ -5,14 +5,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%-- 기본 URL --%>
-<c:url var="_BASE_PARAM" value="">
-	<c:param name="menuNo" value="50"/>
-	<c:param name="pageIndex" value="${searchVO.pageIndex}" />
-  	<c:if test="${not empty searchVO.searchCondition}"><c:param name="searchCondition" value="${searchVO.searchCondition}" /></c:if>
-  	<c:if test="${not empty searchVO.searchKeyword}"><c:param name="searchKeyword" value="${searchVO.searchKeyword}" /></c:if>
-</c:url>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,6 +19,15 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
+
+<%-- 기본 URL --%>
+<c:url var="_BASE_PARAM" value="">
+	<c:param name="menuNo" value="50"/>
+	<c:param name="pageIndex" value="${searchVO.pageIndex}" />
+  	<c:if test="${not empty searchVO.searchCondition}"><c:param name="searchCondition" value="${searchVO.searchCondition}" /></c:if>
+  	<c:if test="${not empty searchVO.searchKeyword}"><c:param name="searchKeyword" value="${searchVO.searchKeyword}" /></c:if>
+</c:url>
+
 <div class="container">
 	<div id="contents">
 		<div id="bbs_wrap">
@@ -42,6 +43,14 @@
 					<dd><fmt:formatDate value="${result.frstRegistPnttm}" pattern="yyyy-MM-dd"/></dd>
 					<dt>조회수</dt>
 					<dd><c:out value="${result.inqireCo}" /></dd>
+				</dl>
+				<dl class="tit_view">
+					<dt>첨부파일</dt>
+					<dd>
+						<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
+		                    <c:param name="param_atchFileId" value="${result.atchFileId}" />
+		                </c:import>
+					</dd>
 				</dl>
 				<div class="view_cont">
 					<c:out value="${result.boardCn}" escapeXml="false" />

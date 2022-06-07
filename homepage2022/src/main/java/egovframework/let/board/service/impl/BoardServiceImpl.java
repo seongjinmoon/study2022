@@ -44,7 +44,10 @@ public class BoardServiceImpl extends EgovAbstractServiceImpl implements BoardSe
 	public BoardVO selectBoard(BoardVO vo) throws Exception {
 		//조회수 업
 		boardMapper.updateViewCnt(vo);
-		
+		/*
+		String a = null;
+		if(a.equals("aa")) a = "";
+		*/
 		return boardMapper.selectBoard(vo);
 	}
 	

@@ -5,13 +5,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%-- 기본 URL --%>
-<c:url var="_BASE_PARAM" value="">
-	<c:param name="menuNo" value="50"/>
-  	<c:if test="${not empty searchVO.searchCondition}"><c:param name="searchCondition" value="${searchVO.searchCondition}" /></c:if>
-  	<c:if test="${not empty searchVO.searchKeyword}"><c:param name="searchKeyword" value="${searchVO.searchKeyword}" /></c:if>
-</c:url>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,6 +19,13 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
+
+<%-- 기본 URL --%>
+<c:url var="_BASE_PARAM" value="">
+	<c:param name="menuNo" value="50"/>
+  	<c:if test="${not empty searchVO.searchCondition}"><c:param name="searchCondition" value="${searchVO.searchCondition}" /></c:if>
+  	<c:if test="${not empty searchVO.searchKeyword}"><c:param name="searchKeyword" value="${searchVO.searchKeyword}" /></c:if>
+</c:url>
 
 <div class="container">
 	<div id="contents">
