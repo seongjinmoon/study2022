@@ -11,6 +11,7 @@ import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import egovframework.let.board.service.BoardService;
 import egovframework.let.board.service.BoardVO;
 import egovframework.let.utl.fcc.service.EgovStringUtil;
+import egovframework.let.utl.fcc.service.FileMngUtil;
 import egovframework.rte.psl.dataaccess.util.EgovMap;
 import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
@@ -35,8 +36,8 @@ public class BoardController {
 	@Resource(name = "EgovFileMngService")
     private EgovFileMngService fileMngService;
 
-    @Resource(name = "EgovFileMngUtil")
-    private EgovFileMngUtil fileUtil;
+    @Resource(name = "fileMngUtil")
+    private FileMngUtil fileUtil;
     
 	//게시물 목록 가져오기
 	@RequestMapping(value = "/board/selectList.do")
@@ -136,7 +137,7 @@ public class BoardController {
 
 	    final Map<String, MultipartFile> files = multiRequest.getFileMap();
 	    if(!files.isEmpty()) {
-			result = fileUtil.parseFileInf(files, "BBS_", 0, "", "board.fileStorePath");
+			result = fileUtil.parseFileInf(files, "BOARD_", 0, "", "board.fileStorePath");
 			atchFileId = fileMngService.insertFileInfs(result);
 	    }
 	    searchVO.setAtchFileId(atchFileId);
@@ -158,7 +159,7 @@ public class BoardController {
 		if(request.getSession().getAttribute("sessionBoard") != null){
 			return "forward:/board/selectList.do";
 		}
-				
+		
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 		if(user == null || user.getId() == null){
 	    	model.addAttribute("message", "로그인 후 사용가능합니다.");
@@ -170,15 +171,15 @@ public class BoardController {
 		String atchFileId = searchVO.getAtchFileId();
 		final Map<String, MultipartFile> files = multiRequest.getFileMap();
 	    if(!files.isEmpty()) {
-			if("".equals(atchFileId)) {
-			    List<FileVO> result = fileUtil.parseFileInf(files, "BBS_", 0, atchFileId, "board.fileStorePath");
+			if(EgovStringUtil.isEmpty(atchFileId)) {
+			    List<FileVO> result = fileUtil.parseFileInf(files, "BOARD_", 0, "", "board.fileStorePath");
 			    atchFileId = fileMngService.insertFileInfs(result);
 			    searchVO.setAtchFileId(atchFileId);
 			}else {
 			    FileVO fvo = new FileVO();
 			    fvo.setAtchFileId(atchFileId);
 			    int cnt = fileMngService.getMaxFileSN(fvo);
-			    List<FileVO> _result = fileUtil.parseFileInf(files, "BBS_", cnt, atchFileId, "board.fileStorePath");
+			    List<FileVO> _result = fileUtil.parseFileInf(files, "BOARD_", cnt, atchFileId, "board.fileStorePath");
 			    fileMngService.updateFileInfs(_result);
 			}
 	    }

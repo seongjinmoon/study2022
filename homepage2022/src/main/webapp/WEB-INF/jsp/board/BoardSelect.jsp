@@ -45,7 +45,7 @@
 					<dd><c:out value="${result.inqireCo}" /></dd>
 				</dl>
 				<dl class="tit_view">
-					<dt>첨부파일</dt>
+					<dt>첨부파일목록</dt>
 					<dd>
 						<c:import url="/cmm/fms/selectFileInfs.do" charEncoding="utf-8">
 		                    <c:param name="param_atchFileId" value="${result.atchFileId}" />

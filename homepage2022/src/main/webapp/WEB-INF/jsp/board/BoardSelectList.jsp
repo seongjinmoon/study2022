@@ -87,8 +87,19 @@
 	                  <%-- 일반 글 --%>
 	                  <c:forEach var="result" items="${resultList}" varStatus="status">
 							<tr>
-								<td class="num"><c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageUnit) - (status.count - 1)}" /></td>
+								<td class="num"><c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageUnit) - (status.count - 1)}" />
+									<br/>
+									${searchVO.pageIndex}<br/>
+									${status.count}<br/>
+								</td>
 								<td class="tit">
+									<c:if test="${not empty result.atchFileNm}">
+										<c:url var="thumbUrl" value="/cmm/fms/getThumbImage.do">
+											<c:param name="thumbYn" value="Y"/>
+											<c:param name="atchFileNm" value="${result.atchFileNm}"/>
+										</c:url>
+										<img src="${thumbUrl}" alt=""/>
+									</c:if>
 									<c:url var="viewUrl" value="/board/select.do${_BASE_PARAM}">
 										<c:param name="boardId" value="${result.boardId}"/>
 										<c:param name="pageIndex" value="${searchVO.pageIndex}" />

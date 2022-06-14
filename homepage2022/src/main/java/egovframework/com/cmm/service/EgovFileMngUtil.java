@@ -69,22 +69,27 @@ public class EgovFileMngUtil {
      */
     public List<FileVO> parseFileInf(Map<String, MultipartFile> files, String KeyStr, int fileKeyParam, String atchFileId, String storePath) throws Exception {
 	int fileKey = fileKeyParam;
-
+	
+	//파일저장경로
 	String storePathString = "";
+	//첨부파일ID
 	String atchFileIdString = "";
 
+	//파일 저장경로 여부
 	if ("".equals(storePath) || storePath == null) {
 	    storePathString = propertyService.getString("Globals.fileStorePath");
 	} else {
 	    storePathString = propertyService.getString(storePath);
 	}
-
+	
+	//첨부파일ID 생성 및 업데이트 여부
 	if ("".equals(atchFileId) || atchFileId == null) {
 	    atchFileIdString = idgenService.getNextStringId();
 	} else {
 	    atchFileIdString = atchFileId;
 	}
-
+	
+	//폴더경로 설정
 	File saveFolder = new File(storePathString);
 
 	if (!saveFolder.exists() || saveFolder.isFile()) {

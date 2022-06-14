@@ -158,7 +158,7 @@ $(function(){
 		            </tr>
 		            <c:if test="${not empty result.atchFileId}">
 			            <tr>
-			                <th scope="row">기존 첨부파일목록</th>
+			                <th scope="row">기존<br/>첨부파일목록</th>
 			                <td>
 			                	<c:import url="/cmm/fms/selectFileInfsForUpdate.do" charEncoding="utf-8">
 				                    <c:param name="param_atchFileId" value="${result.atchFileId}" />
@@ -170,6 +170,10 @@ $(function(){
 		                <th scope="row">파일첨부</th>
 		                <td>
 		                    <input type="file" name="file_1"/>
+		                    <!-- 
+		                    <br/>
+		                    <input type="file" name="file_2"/>
+		                     -->
 		                </td>
 		            </tr>
 		        </tbody>
