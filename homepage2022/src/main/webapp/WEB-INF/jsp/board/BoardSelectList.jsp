@@ -12,13 +12,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 <title>수업용 게시판</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+
+<%@ include file="/WEB-INF/jsp/main/inc/Header.jsp"%>
 <!-- BBS Style -->
 <link href="/asset/BBSTMP_0000000000001/style.css" rel="stylesheet" />
 <!-- 공통 Style -->
 <link href="/asset/LYTTMP_0000000000000/style.css" rel="stylesheet" />
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-</head>
-<body>
 
 <%-- 기본 URL --%>
 <c:url var="_BASE_PARAM" value="">
@@ -87,11 +89,7 @@
 	                  <%-- 일반 글 --%>
 	                  <c:forEach var="result" items="${resultList}" varStatus="status">
 							<tr>
-								<td class="num"><c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageUnit) - (status.count - 1)}" />
-									<br/>
-									${searchVO.pageIndex}<br/>
-									${status.count}<br/>
-								</td>
+								<td class="num"><c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageUnit) - (status.count - 1)}" /></td>
 								<td class="tit">
 									<c:if test="${not empty result.atchFileNm}">
 										<c:url var="thumbUrl" value="/cmm/fms/getThumbImage.do">
@@ -135,6 +133,9 @@
 		</div>
 	</div>
 </div>
+
+<%@ include file="/WEB-INF/jsp/main/inc/Footer.jsp"%>
+
 <script>
 <c:if test="${not empty message}">
 	alert("${message}");
