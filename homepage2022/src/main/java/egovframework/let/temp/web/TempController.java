@@ -1,5 +1,6 @@
 package egovframework.let.temp.web;
 
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -116,5 +118,49 @@ public class TempController {
 	public String jstlImport(@ModelAttribute("searchVO") TempVO searchVO, HttpServletRequest request, ModelMap model) throws Exception{
 		
 		return "/temp/JstlImport";
+	}
+	
+	//ajax샘플
+	@RequestMapping(value = "/temp/ajaxRegist.do")
+	public String tempAjaxRegist(@ModelAttribute("searchVO") TempVO searchVO, HttpServletRequest request, ModelMap model) throws Exception{
+		
+		return "/temp/TempAjaxRegist";
+	}
+	/*
+	//ajax등록
+	@RequestMapping(value = "/temp/insertAjax.do")
+	public void insertAjax(@ModelAttribute("searchVO") TempVO searchVO, HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception{
+		String succcessYn = "Y";
+		String message = "성공";
+		
+		JSONObject jo = new JSONObject();
+    	response.setContentType("text/javascript; charset=utf-8");
+    	
+		tempService.insertTemp(searchVO);
+		
+		jo.put("successYn", succcessYn);
+		jo.put("message", message);
+		
+		PrintWriter printwriter = response.getWriter();
+    	printwriter.println(jo.toString());
+		printwriter.flush();
+		printwriter.close();
+	}
+	*/
+	//ajax목록
+	@RequestMapping(value = "/temp/ajaxList.do")
+	public String tempAjaxList(@ModelAttribute("searchVO") TempVO searchVO, HttpServletRequest request, ModelMap model) throws Exception{
+		//내용 저장
+		if(!EgovStringUtil.isEmpty(searchVO.getTempVal())) {
+			tempService.insertTemp(searchVO);
+		}
+		
+		searchVO.setRecordCountPerPage(Integer.MAX_VALUE);
+		searchVO.setFirstIndex(0);
+		
+		List<EgovMap> resultList = tempService.selectTempList(searchVO);
+		model.addAttribute("resultList", resultList);
+		
+		return "/temp/TempAjaxList";
 	}
 }

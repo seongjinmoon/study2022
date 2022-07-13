@@ -41,7 +41,7 @@ $(document).ready(function(){
 <input type="hidden" name="atchFileId" value="${atchFileId}">
 <input type="hidden" name="fileSn" >
 <input type="hidden" name="fileListCnt" value="${fileListCnt}">
-<ul class="flie-list">
+<ul class="file-list">
 	<c:forEach var="fileVO" items="${fileList}" varStatus="status">
 		<li>
 			<c:choose>
@@ -51,12 +51,12 @@ $(document).ready(function(){
 	  		       	<span><c:out value="${fileVO.fileMg}"/> byte</span>
 	  		       	<span class='del'>
 	  		       		<a href="#" class="file-del" data-id="${fileVO.atchFileId}" data-sn="${fileVO.fileSn}">
-							<img src="/asset/BBSTMP_0000000000001/images/btn_sdelete.gif"/ alt="첨부된 파일 삭제">
+							<img src="/asset/BBSTMP_0000000000001/images/btn_sdelete.gif" alt="첨부된 파일 삭제">
 						</a>
 	  		       	</span>
 				</c:when>
 				<c:otherwise>
-					<c:url var="downLoad" value="/cmm/fms/FileDown.do">
+					<c:url var="downLoad" value="/cmm/fms/Filedown.do">
 						<c:param name="atchFileId" value="${fileVO.atchFileId}"/>
 						<c:param name="fileSn" value="${fileVO.fileSn}"/>
 					</c:url>  		
