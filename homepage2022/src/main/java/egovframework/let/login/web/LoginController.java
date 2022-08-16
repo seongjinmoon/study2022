@@ -4,7 +4,7 @@ import egovframework.com.cmm.EgovMessageSource;
 import egovframework.com.cmm.LoginVO;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import egovframework.let.uat.uia.service.EgovLoginService;
-
+import egovframework.let.utl.fcc.service.EgovStringUtil;
 import egovframework.rte.fdl.cmmn.trace.LeaveaTrace;
 import egovframework.rte.fdl.property.EgovPropertyService;
 
@@ -32,7 +32,11 @@ public class LoginController {
 	//로그인
 	@RequestMapping(value = "/login/actionLogin.do")
 	public String actionLogin(@ModelAttribute("loginVO") LoginVO loginVO, HttpServletRequest request, ModelMap model) throws Exception {
-
+		//SNS로그인
+		if(!EgovStringUtil.isEmpty(loginVO.getLoginType())) {
+			loginVO.setId(loginVO.getLoginType() + "-" + loginVO.getId());
+		}
+		
 		LoginVO resultVO = loginService.actionLogin(loginVO);
 		if (resultVO != null && resultVO.getId() != null && !resultVO.getId().equals("")){
 			request.getSession().setAttribute("LoginVO", resultVO);
@@ -42,7 +46,7 @@ public class LoginController {
 			return "forward:/index.do";
 		}
 	}
-
+	
 	//로그아웃
 	@RequestMapping(value = "/login/actionLogout.do")
 	public String actionLogout(HttpServletRequest request, ModelMap model) throws Exception {

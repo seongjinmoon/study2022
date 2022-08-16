@@ -17,6 +17,7 @@
 	        	<entry key="photoThumbWidth" value="200"/>
 	        	<entry key="photoThumbHeight" value="140"/>
 	        	
+	        	<entry key="kakaoJsKey" value="65ffb9ac529a1e24aaf1caf6957548df"/>
 	        </map>
 		</property>
 	</bean>
