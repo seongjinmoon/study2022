@@ -3,6 +3,7 @@ package egovframework.let.join.web;
 import egovframework.com.cmm.EgovMessageSource;
 import egovframework.let.join.service.JoinService;
 import egovframework.let.join.service.JoinVO;
+import egovframework.let.join.service.NaverLoginService;
 import egovframework.let.utl.fcc.service.EgovStringUtil;
 import net.sf.json.JSONObject;
 
@@ -11,6 +12,7 @@ import java.io.PrintWriter;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,13 +26,20 @@ public class JoinController {
 	@Resource(name = "joinService")
     private JoinService joinService;
 	
+	@Resource(name = "naverLoginService")
+    private NaverLoginService naverLoginService;
+	
 	@Resource(name = "egovMessageSource")
 	EgovMessageSource egovMessageSource;
 	
 	//회원구분
 	@RequestMapping(value = "/join/memberType.do")
-	public String memberType(@ModelAttribute("searchVO") JoinVO vo,  HttpServletRequest request, ModelMap model) throws Exception{
-		
+	public String memberType(@ModelAttribute("searchVO") JoinVO vo,  HttpServletRequest request, ModelMap model, HttpSession session) throws Exception{
+		//Naver
+        String domain = request.getServerName();
+        String naverAuthUrl = naverLoginService.getAuthorizationUrl(session, domain);
+        model.addAttribute("naverAuthUrl", naverAuthUrl);
+        
 		return "join/MemberType";
 	}
 		
@@ -65,11 +74,11 @@ public class JoinController {
 		
 		return "forward:/index.do";
 	}
-	
+	/*
 	//아이디 중복체크
 	@RequestMapping(value = "/join/duplicateCheck.do")
 	public void duplicateCheck(@ModelAttribute("searchVO") JoinVO vo, HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception{
-		String succcessYn = "Y";
+		String successYn = "Y";
 		String message = "성공";
 		
 		JSONObject jo = new JSONObject();
@@ -77,11 +86,35 @@ public class JoinController {
     	
     	int duplicateCnt = joinService.duplicateCheck(vo);
 		if(duplicateCnt > 0) {
-			succcessYn = "N";
+			successYn = "N";
 			message = egovMessageSource.getMessage("fail.duplicate.member"); //이미 사용중인 ID입니다.;
 		}
     	
-		jo.put("successYn", succcessYn);
+		jo.put("successYn", successYn);
+		jo.put("message", message);
+		
+		PrintWriter printwriter = response.getWriter();
+    	printwriter.println(jo.toString());
+		printwriter.flush();
+		printwriter.close();
+	}
+	*/
+	//아이디 중복체크
+	@RequestMapping(value = "/join/duplicateCheck.do")
+	public void duplicateCheck(@ModelAttribute("searchVO") JoinVO vo, HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception{
+		String successYn = "Y";
+		String message = "성공";
+		
+		org.json.simple.JSONObject jo = new org.json.simple.JSONObject();
+    	response.setContentType("application/json; charset=utf-8");
+    	
+    	int duplicateCnt = joinService.duplicateCheck(vo);
+		if(duplicateCnt > 0) {
+			successYn = "N";
+			message = egovMessageSource.getMessage("fail.duplicate.member"); //이미 사용중인 ID입니다.;
+		}
+    	
+		jo.put("successYn", successYn);
 		jo.put("message", message);
 		
 		PrintWriter printwriter = response.getWriter();
