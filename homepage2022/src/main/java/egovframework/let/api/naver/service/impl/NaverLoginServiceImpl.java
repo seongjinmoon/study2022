@@ -1,4 +1,4 @@
-package egovframework.let.join.service.impl;
+package egovframework.let.api.naver.service.impl;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -12,8 +12,9 @@ import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.github.scribejava.core.oauth.OAuth20Service;
 
-import egovframework.let.join.service.NaverLoginApi;
-import egovframework.let.join.service.NaverLoginService;
+import egovframework.com.cmm.service.Globals;
+import egovframework.let.api.naver.service.NaverLoginApi;
+import egovframework.let.api.naver.service.NaverLoginService;
 import egovframework.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -24,9 +25,9 @@ import okhttp3.Response;
 public class NaverLoginServiceImpl extends EgovAbstractServiceImpl implements NaverLoginService {
 	
 	/* 인증 요청문을 구성하는 파라미터 */
-    private final static String CLIENT_ID = "ZBASmUzNJ7kbEIm45LGI";
-    private final static String CLIENT_SECRET = "TaTzYBHMhq";
-    private final static String REDIRECT_URI = "/login/naverLogin.do";
+    private final static String CLIENT_ID = Globals.NAVER_CLIENTID;
+    private final static String CLIENT_SECRET = Globals.NAVER_CLIENTSECRET;
+    private final static String REDIRECT_URI = Globals.NAVER_REDIRECTURI;
     private final static String SESSION_STATE = "oauth_state";
     /* 프로필 조회 API URL */
     private final static String PROFILE_API_URL = "https://openapi.naver.com/v1/nid/me";

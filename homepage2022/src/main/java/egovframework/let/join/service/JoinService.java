@@ -1,5 +1,6 @@
 package egovframework.let.join.service;
 
+import egovframework.let.api.naver.service.JoinVO;
 
 public interface JoinService {
 	

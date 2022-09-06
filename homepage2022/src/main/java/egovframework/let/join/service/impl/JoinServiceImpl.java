@@ -1,7 +1,7 @@
 package egovframework.let.join.service.impl;
 
+import egovframework.let.api.naver.service.JoinVO;
 import egovframework.let.join.service.JoinService;
-import egovframework.let.join.service.JoinVO;
 import egovframework.let.utl.sim.service.EgovFileScrty;
 import egovframework.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import egovframework.rte.fdl.idgnr.EgovIdGnrService;

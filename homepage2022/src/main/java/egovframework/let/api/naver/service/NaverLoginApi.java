@@ -1,4 +1,4 @@
-package egovframework.let.join.service;
+package egovframework.let.api.naver.service;
 
 import com.github.scribejava.core.builder.api.DefaultApi20;
 
