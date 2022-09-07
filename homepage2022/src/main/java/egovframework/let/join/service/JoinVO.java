@@ -1,4 +1,4 @@
-package egovframework.let.api.naver.service;
+package egovframework.let.join.service;
 
 import java.io.Serializable;
 

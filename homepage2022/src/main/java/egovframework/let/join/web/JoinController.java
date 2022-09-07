@@ -1,9 +1,9 @@
 package egovframework.let.join.web;
 
 import egovframework.com.cmm.EgovMessageSource;
-import egovframework.let.api.naver.service.JoinVO;
 import egovframework.let.api.naver.service.NaverLoginService;
 import egovframework.let.join.service.JoinService;
+import egovframework.let.join.service.JoinVO;
 import egovframework.let.utl.fcc.service.EgovStringUtil;
 import net.sf.json.JSONObject;
 

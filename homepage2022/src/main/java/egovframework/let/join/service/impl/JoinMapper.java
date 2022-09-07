@@ -1,6 +1,6 @@
 package egovframework.let.join.service.impl;
 
-import egovframework.let.api.naver.service.JoinVO;
+import egovframework.let.join.service.JoinVO;
 import egovframework.rte.psl.dataaccess.mapper.Mapper;
 
 @Mapper("joinMapper")
