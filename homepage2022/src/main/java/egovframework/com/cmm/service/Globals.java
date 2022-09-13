@@ -37,4 +37,8 @@ public class Globals {
 	//네이버 리다이렉트URL
 	public static final String NAVER_REDIRECTURI = EgovProperties.getProperty("NAVER.redirectUri");
 	
+	//메인페이지
+	public static final String MAIN_PAGE = EgovProperties.getProperty("Globals.MainPage");
+	
+	
 }

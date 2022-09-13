@@ -1231,7 +1231,7 @@ td .ui-selectmenu-button { vertical-align:middle;margin-right:2px; }
 }
 
 /* jquery-plugin :datepicker */
-input.datepicker { 
+input.datepicker {
 	width:120px;
 	margin-right:0;
 	background:url('./images/common/datepicker.svg') right center no-repeat #fff;
@@ -1246,6 +1246,7 @@ input.datepicker + span {
 	position:relative;
 	vertical-align:middle;
 }
+/*
 .ui-datepicker { 
 	display:none; 
 	background-color:#fff;
@@ -1343,7 +1344,7 @@ input.datepicker + span {
 }
 /*.ui-datepicker th.ui-datepicker-week-end span[title=Sunday] {
 	color:#dd3423;
-}*/ 
+}* / 
 .ui-datepicker td:first-child a{
 	 color:#dd3423;
 }
@@ -1415,6 +1416,7 @@ input.datepicker + span {
 	box-sizing:border-box;
 	color:#000;
 }
+
 .hasDatepicker + img { margin-left:10px;vertical-align:middle; }
 .datepicker-inline .ui-datepicker-inline {
 	border:none;
@@ -1464,7 +1466,7 @@ input.datepicker + span {
 	box-sizing:border-box;
 	box-shadow:0 3px 7px rgba(0,0,0,.2);
 }
-
+*/
 
 /* 달력 */
 .mn-date .schedule_box {
