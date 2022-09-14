@@ -28,67 +28,66 @@
   	<c:if test="${not empty searchVO.searchKeyword}"><c:param name="searchKeyword" value="${searchVO.searchKeyword}" /></c:if>
 </c:url>
 
-        <!-- content 시작 -->
-        <div id="content">
-
-			<div class="container">
-				<div id="contents">
-					<div id="bbs_wrap">
-						<div class="board_view">				
-							<dl class="tit_view">
-								<dt>프로그램명</dt>
-								<dd><c:out value="${result.resveSj}"/></dd>
-							</dl>
-							<dl class="tit_view">
-								<dt>신청유형</dt>
-								<dd>
-									<c:choose>
-										<c:when test="${result.resveSeCode eq 'TYPE01'}">선착순</c:when>
-										<c:when test="${result.resveSeCode eq 'TYPE02'}">승인관리</c:when>
-									</c:choose>
-								</dd>
-							</dl>
-							<dl class="tit_view">
-								<dt>강사명</dt>
-								<dd><c:out value="${result.recNm}"/></dd>
-							</dl>
-							<dl class="info_view">
-								<dt>운영일자</dt>
-								<dd><c:out value="${result.useBeginDt}"/> ~ <c:out value="${result.useEndDt}"/></dd>
-								<dt>운영시간</dt>
-								<dd><c:out value="${result.useBeginTime} ~ ${result.useEndTime}"/></dd>
-								<dt>신청기간</dt>
-								<dd><c:out value="${result.reqstBgnde}"/> ~ <c:out value="${result.reqstEndde}"/></dd>
-								<dt>신청 가능한 인원</dt>
-								<dd><c:out value="${result.maxAplyCnt}"/></dd>
-							</dl>
-							<dl class="info_view2">
-								<dt>작성자ID</dt>
-								<dd><c:out value="${result.frstRegisterId}"/></dd>
-								<dt>작성일</dt>
-								<dd><fmt:formatDate value="${result.frstRegistPnttm}" pattern="yyyy-MM-dd"/></dd>
-							</dl>
-							<div class="view_cont">
-								<c:out value="${result.resveCn}" escapeXml="false" />
-							</div>
-						</div>
-						
-						<div class="btn-cont ar">
-							 <c:choose>
-	                    		<c:when test="${result.applyStatus eq '1'}"><a href="#" class="btn btn-status" data-status="${result.applyStatus}">접수 대기중</a></c:when>
-	                    		<c:when test="${result.applyStatus eq '2'}"><a href="/rsv/rsvApplyRegist.do${_BASE_PARAM}" id="btn-apply" class="btn spot">신청</a></c:when>
-	                    		<c:when test="${result.applyStatus eq '3'}"><a href="#" class="btn btn-status" data-status="${result.applyStatus}">접수마감</a></c:when>
-	                    		<c:when test="${result.applyStatus eq '4'}"><a href="#" class="btn btn-status" data-status="${result.applyStatus}">운영중</a></c:when>
-	                    		<c:otherwise><a href="#" class="btn btn-status" data-status="${result.applyStatus}">종료</a></c:otherwise>
-	                    	</c:choose>
-							<c:url var="listUrl" value="/rsv/selectList.do${_BASE_PARAM}"/>
-						    <a href="${listUrl}" class="btn">목록</a>
-						</div>
+<!-- content 시작 -->
+<div id="content">
+	<div class="container">
+		<div id="contents">
+			<div id="bbs_wrap">
+				<div class="board_view">				
+					<dl class="tit_view">
+						<dt>프로그램명</dt>
+						<dd><c:out value="${result.resveSj}"/></dd>
+					</dl>
+					<dl class="tit_view">
+						<dt>신청유형</dt>
+						<dd>
+							<c:choose>
+								<c:when test="${result.resveSeCode eq 'TYPE01'}">선착순</c:when>
+								<c:when test="${result.resveSeCode eq 'TYPE02'}">승인관리</c:when>
+							</c:choose>
+						</dd>
+					</dl>
+					<dl class="tit_view">
+						<dt>강사명</dt>
+						<dd><c:out value="${result.recNm}"/></dd>
+					</dl>
+					<dl class="info_view">
+						<dt>운영일자</dt>
+						<dd><c:out value="${result.useBeginDt}"/> ~ <c:out value="${result.useEndDt}"/></dd>
+						<dt>운영시간</dt>
+						<dd><c:out value="${result.useBeginTime} ~ ${result.useEndTime}"/></dd>
+						<dt>신청기간</dt>
+						<dd><c:out value="${result.reqstBgnde}"/> ~ <c:out value="${result.reqstEndde}"/></dd>
+						<dt>신청 가능한 인원</dt>
+						<dd><c:out value="${result.maxAplyCnt}"/></dd>
+					</dl>
+					<dl class="info_view2">
+						<dt>작성자ID</dt>
+						<dd><c:out value="${result.frstRegisterId}"/></dd>
+						<dt>작성일</dt>
+						<dd><fmt:formatDate value="${result.frstRegistPnttm}" pattern="yyyy-MM-dd"/></dd>
+					</dl>
+					<div class="view_cont">
+						<c:out value="${result.resveCn}" escapeXml="false" />
 					</div>
+				</div>
+				
+				<div class="btn-cont ar">
+					 <c:choose>
+                   		<c:when test="${result.applyStatus eq '1'}"><a href="#" class="btn btn-status" data-status="${result.applyStatus}">접수 대기중</a></c:when>
+                   		<c:when test="${result.applyStatus eq '2'}"><a href="/rsv/rsvApplyRegist.do${_BASE_PARAM}" id="btn-apply" class="btn spot">신청</a></c:when>
+                   		<c:when test="${result.applyStatus eq '3'}"><a href="#" class="btn btn-status" data-status="${result.applyStatus}">접수마감</a></c:when>
+                   		<c:when test="${result.applyStatus eq '4'}"><a href="#" class="btn btn-status" data-status="${result.applyStatus}">운영중</a></c:when>
+                   		<c:otherwise><a href="#" class="btn btn-status" data-status="${result.applyStatus}">종료</a></c:otherwise>
+                   	</c:choose>
+					<c:url var="listUrl" value="/rsv/selectList.do${_BASE_PARAM}"/>
+				    <a href="${listUrl}" class="btn">목록</a>
 				</div>
 			</div>
 		</div>
-        <!-- //content 끝 -->
+	</div>
+</div>
+<!-- //content 끝 -->
 <script>
 $(document).ready(function(){
 	//예약상태 메세지
@@ -138,4 +137,3 @@ $(document).ready(function(){
 </script>                        
 </body>
 </html>
-

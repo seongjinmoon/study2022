@@ -29,83 +29,82 @@
 </c:url>
 
 
-        <!-- content 시작 -->
-        <div id="content">
-
-			<div class="container">
-				<div id="contents">
-					<form action="/admin/rsv/rsvApplyConfirm.do" method="post" id="frm" name="frm" onsubmit="return regist()">
-						<input type="hidden" name="resveId" value="${result.resveId}"/>
-						<input type="hidden" name="reqstId" value="${result.reqstId}"/>
-						
-						<table class="chart2">
-					        <caption>예약정보 작성</caption>
-					        <colgroup>
-					            <col style="width:120px" />
-					            <col />
-					        </colgroup>
-					        <tbody>
-					            <tr>
-					                <th scope="row">신청자명</th>
-					                <td><c:out value="${result.chargerNm }"/>(<c:out value="${result.frstRegisterId}"/>)</td>
-					            </tr>
-					            <tr>
-					            	<th scope="row">연락처</th>
-					                <td>
-					                	<c:out value="${result.telno}"/>
-					                </td>
-					            </tr>
-					            <tr>
-					            	<th scope="row">이메일</th>
-					                <td>
-					                	<c:choose>
-					                		<c:when test="${empty result.email}">없음</c:when>
-					                		<c:otherwise>
-					                			<c:out value="${result.email}"/>
-					                		</c:otherwise>
-					                	</c:choose>
-					                </td>
-					            </tr>
-					            <tr>
-					            	<th scope="row">승인여부</th>
-					                <td>
-					                	<select id="confmSeCode" name="confmSeCode">
-					                		<option value="R">접수</option>
-					                		<option value="O" <c:if test="${result.confmSeCode eq 'O'}">selected="selected"</c:if>>승인완료</option>
-					                		<option value="X" <c:if test="${result.confmSeCode eq 'X'}">selected="selected"</c:if>>반려</option>
-					                	</select>
-					                </td>
-					            </tr>
-					            <tr id="resn" <c:if test="${result.confmSeCode ne 'X'}">style="display:none;"</c:if>>
-					            	<th>반려사유</th>
-					            	<td>
-					            		<textarea rows="5" id="returnResn" name="returnResn"><c:out value="${result.returnResn}"/></textarea>
-					            	</td>
-					            </tr>
-					        </tbody>
-					    </table>
-						<div class="btn-cont ar">
-						    <c:choose>
-								<c:when test="${not empty searchVO.resveId}">
-									<a href="#" id="btn-upt" class="btn">수정</a>
-									
-									<c:url var="delUrl" value="/admin/rsv/rsvApplyDelete.do${_BASE_PARAM}">
-										<c:param name="reqstId" value="${result.reqstId}"/>
-									</c:url>
-						    		<a href="${delUrl}" id="btn-del" class="btn"><i class="ico-del"></i> 삭제</a>
-								</c:when>
-								<c:otherwise>
-									<a href="#none" id="btn-reg" class="btn spot">등록</a>
-								</c:otherwise>
-							</c:choose>
-							<c:url var="listUrl" value="/admin/rsv/selectApplyList.do${_BASE_PARAM}"/>
-						    <a href="${listUrl}" class="btn">취소</a>
-						</div>
-					</form>
+<!-- content 시작 -->
+<div id="content">
+	<div class="container">
+		<div id="contents">
+			<form action="/admin/rsv/rsvApplyConfirm.do" method="post" id="frm" name="frm" onsubmit="return regist()">
+				<input type="hidden" name="resveId" value="${result.resveId}"/>
+				<input type="hidden" name="reqstId" value="${result.reqstId}"/>
+				
+				<table class="chart2">
+			        <caption>예약정보 작성</caption>
+			        <colgroup>
+			            <col style="width:120px" />
+			            <col />
+			        </colgroup>
+			        <tbody>
+			            <tr>
+			                <th scope="row">신청자명</th>
+			                <td><c:out value="${result.chargerNm }"/>(<c:out value="${result.frstRegisterId}"/>)</td>
+			            </tr>
+			            <tr>
+			            	<th scope="row">연락처</th>
+			                <td>
+			                	<c:out value="${result.telno}"/>
+			                </td>
+			            </tr>
+			            <tr>
+			            	<th scope="row">이메일</th>
+			                <td>
+			                	<c:choose>
+			                		<c:when test="${empty result.email}">없음</c:when>
+			                		<c:otherwise>
+			                			<c:out value="${result.email}"/>
+			                		</c:otherwise>
+			                	</c:choose>
+			                </td>
+			            </tr>
+			            <tr>
+			            	<th scope="row">승인여부</th>
+			                <td>
+			                	<select id="confmSeCode" name="confmSeCode">
+			                		<option value="R">접수</option>
+			                		<option value="O" <c:if test="${result.confmSeCode eq 'O'}">selected="selected"</c:if>>승인완료</option>
+			                		<option value="X" <c:if test="${result.confmSeCode eq 'X'}">selected="selected"</c:if>>반려</option>
+			                	</select>
+			                </td>
+			            </tr>
+			            <tr id="resn" <c:if test="${result.confmSeCode ne 'X'}">style="display:none;"</c:if>>
+			            	<th>반려사유</th>
+			            	<td>
+			            		<textarea rows="5" id="returnResn" name="returnResn"><c:out value="${result.returnResn}"/></textarea>
+			            	</td>
+			            </tr>
+			        </tbody>
+			    </table>
+				<div class="btn-cont ar">
+				    <c:choose>
+						<c:when test="${not empty searchVO.resveId}">
+							<a href="#" id="btn-upt" class="btn">수정</a>
+							
+							<c:url var="delUrl" value="/admin/rsv/rsvApplyDelete.do${_BASE_PARAM}">
+								<c:param name="reqstId" value="${result.reqstId}"/>
+							</c:url>
+				    		<a href="${delUrl}" id="btn-del" class="btn"><i class="ico-del"></i> 삭제</a>
+						</c:when>
+						<c:otherwise>
+							<a href="#none" id="btn-reg" class="btn spot">등록</a>
+						</c:otherwise>
+					</c:choose>
+					<c:url var="listUrl" value="/admin/rsv/selectApplyList.do${_BASE_PARAM}"/>
+				    <a href="${listUrl}" class="btn">취소</a>
 				</div>
-			</div>
+			</form>
 		</div>
-        <!-- //content 끝 -->
+	</div>
+</div>
+<!-- //content 끝 -->
         
 <script>
 $(document).ready(function(){

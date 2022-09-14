@@ -46,102 +46,101 @@
 </c:url>
 
     
-        <!-- content 시작 -->
-        <div id="content">
-        
-			<div class="container">
-				<div id="contents">
-					<form action="${actionUrl}" method="post" id="frm" name="frm" onsubmit="return regist()">
-						<input type="hidden" name="resveId" value="${result.resveId}"/>
-						
-						<table class="chart2">
-					        <caption>예약정보 작성</caption>
-					        <colgroup>
-					            <col style="width:150px" />
-					            <col />
-					        </colgroup>
-					        <tbody>
-					            <tr>
-					                <th scope="row">프로그램명</th>
-					                <td>
-					                    <input type="text" id="resveSj" name="resveSj" title="제목입력" class="q3" value="<c:out value="${result.resveSj}"/>"/>
-					                </td>
-					            </tr>
-					            <tr>
-					                <th scope="row">프로그램 종류</th>
-					                <td>
-					                    <select id="resveSeCode" name="resveSeCode">
-					                		<option value="TYPE01">선착순</option>
-					                		<option value="TYPE02" <c:if test="${result.resveSeCode eq 'TYPE02'}">selected="selected"</c:if>>승인관리</option>
-					                	</select>
-					                </td>
-					            </tr>
-					            <tr>
-					            	<th scope="row">운영기간</th>
-					                <td>
-					                    <input type="text" id="useBeginDt" class="datepicker" name="useBeginDt" title="운영시작일" value="<c:out value="${result.useBeginDt}"/>" readonly="readonly"/>
-					                    ~ <input type="text" id="useEndDt" class="datepicker" name="useEndDt" title="운영종료일" value="<c:out value="${result.useEndDt}"/>" readonly="readonly"/>
-					                </td>
-					            </tr>
-					            <tr>
-					            	<th scope="row">운영시간</th>
-					                <td>
-					                    <input type="text" id="useBeginTime" class="timepicker" name="useBeginTime" title="운영시작시간" value="<c:out value="${result.useBeginTime}"/>" readonly="readonly"/>
-					                    ~ <input type="text" id="useEndTime" class="timepicker" name="useEndTime" title="운영종료시간" value="<c:out value="${result.useEndTime}"/>" readonly="readonly"/>
-					                </td>
-					            </tr>
-					            <tr>
-					            	<th scope="row">신청기간</th>
-					                <td>
-					                    <input type="text" id="reqstBgnde" class="datepicker" name="reqstBgnde" title="신청시작일" value="<c:out value="${result.reqstBgnde}"/>" readonly="readonly"/>
-					                    ~ <input type="text" id="reqstEndde" class="datepicker" name="reqstEndde" title="신청종료일" value="<c:out value="${result.reqstEndde}"/>" readonly="readonly"/>
-					                </td>
-					            </tr>
-					            <tr>
-					            	<th scope="row">강사명</th>
-					                <td>
-					                    <input type="text" id="recNm" name="recNm" title="신청시작일" value="<c:out value="${result.recNm}"/>"/>
-					                </td>
-					            </tr>
-					            <tr>
-					            	<th scope="row">신청인원수</th>
-					                <td>
-					                    <input type="number" id="maxAplyCnt" name="maxAplyCnt" title="신청시작일" value="<c:out value="${result.maxAplyCnt}"/>"/>명
-					                </td>
-					            </tr>
-					            <tr>
-					                <th scope="row">내용</th>
-					                <td>
-					                    <textarea id="resveCn" name="resveCn" rows="15" title="내용입력"><c:out value="${result.resveCn}"/></textarea>
-					                </td>
-					            </tr>
-					        </tbody>
-					    </table>
-						<div class="btn-cont ar">
-						    <c:choose>
-								<c:when test="${not empty searchVO.resveId}">
-									<c:url var="uptUrl" value="/admin/rsv/rsvRegist.do${_BASE_PARAM}">
-										<c:param name="resveId" value="${result.resveId}"/>
-									</c:url>
-									<a href="${uptUrl}" id="btn-reg" class="btn">수정</a>
-									
-									<c:url var="delUrl" value="/admin/rsv/rsvDelete.do${_BASE_PARAM}">
-										<c:param name="resveId" value="${result.resveId}"/>
-									</c:url>
-						    		<a href="${delUrl}" id="btn-del" class="btn"><i class="ico-del"></i> 삭제</a>
-								</c:when>
-								<c:otherwise>
-									<a href="#none" id="btn-reg" class="btn spot">등록</a>
-								</c:otherwise>
-							</c:choose>
-							<c:url var="listUrl" value="/admin/rsv/rsvSelectList.do${_BASE_PARAM}"/>
-						    <a href="${listUrl}" class="btn">취소</a>
-						</div>
-					</form>
+<!-- content 시작 -->
+<div id="content">
+	<div class="container">
+		<div id="contents">
+			<form action="${actionUrl}" method="post" id="frm" name="frm" onsubmit="return regist()">
+				<input type="hidden" name="resveId" value="${result.resveId}"/>
+				
+				<table class="chart2">
+			        <caption>예약정보 작성</caption>
+			        <colgroup>
+			            <col style="width:150px" />
+			            <col />
+			        </colgroup>
+			        <tbody>
+			            <tr>
+			                <th scope="row">프로그램명</th>
+			                <td>
+			                    <input type="text" id="resveSj" name="resveSj" title="제목입력" class="q3" value="<c:out value="${result.resveSj}"/>"/>
+			                </td>
+			            </tr>
+			            <tr>
+			                <th scope="row">프로그램 종류</th>
+			                <td>
+			                    <select id="resveSeCode" name="resveSeCode">
+			                		<option value="TYPE01">선착순</option>
+			                		<option value="TYPE02" <c:if test="${result.resveSeCode eq 'TYPE02'}">selected="selected"</c:if>>승인관리</option>
+			                	</select>
+			                </td>
+			            </tr>
+			            <tr>
+			            	<th scope="row">운영기간</th>
+			                <td>
+			                    <input type="text" id="useBeginDt" class="datepicker" name="useBeginDt" title="운영시작일" value="<c:out value="${result.useBeginDt}"/>" readonly="readonly"/>
+			                    ~ <input type="text" id="useEndDt" class="datepicker" name="useEndDt" title="운영종료일" value="<c:out value="${result.useEndDt}"/>" readonly="readonly"/>
+			                </td>
+			            </tr>
+			            <tr>
+			            	<th scope="row">운영시간</th>
+			                <td>
+			                    <input type="text" id="useBeginTime" class="timepicker" name="useBeginTime" title="운영시작시간" value="<c:out value="${result.useBeginTime}"/>" readonly="readonly"/>
+			                    ~ <input type="text" id="useEndTime" class="timepicker" name="useEndTime" title="운영종료시간" value="<c:out value="${result.useEndTime}"/>" readonly="readonly"/>
+			                </td>
+			            </tr>
+			            <tr>
+			            	<th scope="row">신청기간</th>
+			                <td>
+			                    <input type="text" id="reqstBgnde" class="datepicker" name="reqstBgnde" title="신청시작일" value="<c:out value="${result.reqstBgnde}"/>" readonly="readonly"/>
+			                    ~ <input type="text" id="reqstEndde" class="datepicker" name="reqstEndde" title="신청종료일" value="<c:out value="${result.reqstEndde}"/>" readonly="readonly"/>
+			                </td>
+			            </tr>
+			            <tr>
+			            	<th scope="row">강사명</th>
+			                <td>
+			                    <input type="text" id="recNm" name="recNm" title="신청시작일" value="<c:out value="${result.recNm}"/>"/>
+			                </td>
+			            </tr>
+			            <tr>
+			            	<th scope="row">신청인원수</th>
+			                <td>
+			                    <input type="number" id="maxAplyCnt" name="maxAplyCnt" title="신청시작일" value="<c:out value="${result.maxAplyCnt}"/>"/>명
+			                </td>
+			            </tr>
+			            <tr>
+			                <th scope="row">내용</th>
+			                <td>
+			                    <textarea id="resveCn" name="resveCn" rows="15" title="내용입력"><c:out value="${result.resveCn}"/></textarea>
+			                </td>
+			            </tr>
+			        </tbody>
+			    </table>
+				<div class="btn-cont ar">
+				    <c:choose>
+						<c:when test="${not empty searchVO.resveId}">
+							<c:url var="uptUrl" value="/admin/rsv/rsvRegist.do${_BASE_PARAM}">
+								<c:param name="resveId" value="${result.resveId}"/>
+							</c:url>
+							<a href="${uptUrl}" id="btn-reg" class="btn">수정</a>
+							
+							<c:url var="delUrl" value="/admin/rsv/rsvDelete.do${_BASE_PARAM}">
+								<c:param name="resveId" value="${result.resveId}"/>
+							</c:url>
+				    		<a href="${delUrl}" id="btn-del" class="btn"><i class="ico-del"></i> 삭제</a>
+						</c:when>
+						<c:otherwise>
+							<a href="#none" id="btn-reg" class="btn spot">등록</a>
+						</c:otherwise>
+					</c:choose>
+					<c:url var="listUrl" value="/admin/rsv/rsvSelectList.do${_BASE_PARAM}"/>
+				    <a href="${listUrl}" class="btn">취소</a>
 				</div>
-			</div>
+			</form>
 		</div>
-        <!-- //content 끝 -->
+	</div>
+</div>
+<!-- //content 끝 -->
         
 <script>
 $(document).ready(function(){

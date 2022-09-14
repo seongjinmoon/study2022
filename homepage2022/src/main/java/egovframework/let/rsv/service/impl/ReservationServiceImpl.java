@@ -1,10 +1,7 @@
 package egovframework.let.rsv.service.impl;
 
-import egovframework.let.board.service.BoardService;
-import egovframework.let.board.service.BoardVO;
 import egovframework.let.rsv.service.ReservationService;
 import egovframework.let.rsv.service.ReservationVO;
-import egovframework.let.temp.service.TempVO;
 import egovframework.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import egovframework.rte.fdl.idgnr.EgovIdGnrService;
 import egovframework.rte.fdl.property.EgovPropertyService;
