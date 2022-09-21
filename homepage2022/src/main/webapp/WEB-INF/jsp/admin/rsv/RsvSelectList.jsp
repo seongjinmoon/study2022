@@ -35,14 +35,14 @@
 				<form name="frm" method="post" action="/admin/rsv/rsvSelectList.do">
 					<fieldset>
 						<legend>검색조건입력폼</legend>
-							<label for="ftext" class="hdn">검색분류선택</label>
-							<select name="searchCondition" id="ftext">
-								<option value="0" <c:if test="${searchVO.searchCondition eq '0'}">selected="selected"</c:if>>프로그램명</option>
-	   							<option value="1" <c:if test="${searchVO.searchCondition eq '1'}">selected="selected"</c:if>>내용</option>
-							</select>
-							<label for="inp_text" class="hdn">검색어입력</label>
-							<input name="searchKeyword" value="<c:out value="${searchVO.searchKeyword}"/>" type="text" class="inp_s" id="inp_text" />
-							<span class="bbtn_s"><input type="submit" value="검색" title="검색(수업용 예약관리 게시물 내)" /></span>
+						<label for="ftext" class="hdn">검색분류선택</label>
+						<select name="searchCondition" id="ftext">
+							<option value="0" <c:if test="${searchVO.searchCondition eq '0'}">selected="selected"</c:if>>프로그램명</option>
+   							<option value="1" <c:if test="${searchVO.searchCondition eq '1'}">selected="selected"</c:if>>내용</option>
+						</select>
+						<label for="inp_text" class="hdn">검색어입력</label>
+						<input name="searchKeyword" value="<c:out value="${searchVO.searchKeyword}"/>" type="text" class="inp_s" id="inp_text" />
+						<span class="bbtn_s"><input type="submit" value="검색" title="검색(수업용 예약관리 게시물 내)" /></span>
 					</fieldset>
 				</form>
   			</div>
@@ -103,11 +103,11 @@
 					               <td>
 										<a href="${updateUrl}" class="btn spot">수정</a>
 										<br/><br/>
-										<c:url var="deleteeUrl" value="/admin/rsv/rsvDelete.do${_BASE_PARAM}">
+										<c:url var="deleteUrl" value="/admin/rsv/rsvDelete.do${_BASE_PARAM}">
 											<c:param name="resveId" value="${result.resveId}"/>
 											<c:param name="pageIndex" value="${searchVO.pageIndex}" />
 										</c:url>
-										<a href="${deleteeUrl}" class="btn spot btn-del">삭제</a>
+										<a href="${deleteUrl}" class="btn spot btn-del">삭제</a>
 									</td>
 								</tr>
 							</c:forEach>
@@ -121,7 +121,7 @@
 			   </div>
 			   
 				<div id="paging">
-					<c:url var="pageUrl" value="//admin/rsv/rsvSelectList.do${_BASE_PARAM}"/>
+					<c:url var="pageUrl" value="/admin/rsv/rsvSelectList.do${_BASE_PARAM}"/>
 					<c:set var="pagingParam"><c:out value="${pageUrl}"/></c:set>
 					<ui:pagination paginationInfo="${paginationInfo}" type="image" jsFunction="${pagingParam}"/>
 				</div>
