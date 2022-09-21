@@ -61,6 +61,7 @@
 		                  <tr>
 		                      <th class="num" scope="col">번호</th>
 		                      <th class="tit" scope="col">프로그램명</th>
+		                      <th scope="col">신청유형</th>
 		                      <th scope="col">신청기간</th>
 		                      <th scope="col">운영일</th>
 		                      <th scope="col">운영시간</th>
@@ -80,6 +81,13 @@
 										<a href="${viewUrl}">
 											<c:out value="${result.resveSj}"/>
 										</a>
+									</td>
+									<td>
+										<c:choose>
+											<c:when test="${result.resveSeCode eq 'TYPE01'}">선착순</c:when>
+											<c:when test="${result.resveSeCode eq 'TYPE02'}">승인관리</c:when>
+											<c:otherwise>-</c:otherwise>
+										</c:choose>
 									</td>
 									<td>
 										<c:out value="${result.reqstBgnde}"/>~<br/>

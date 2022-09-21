@@ -67,7 +67,7 @@
 			                </td>
 			            </tr>
 			            <tr>
-			                <th scope="row">프로그램 종류</th>
+			                <th scope="row">신청유형</th>
 			                <td>
 			                    <select id="resveSeCode" name="resveSeCode">
 			                		<option value="TYPE01">선착순</option>
@@ -99,13 +99,13 @@
 			            <tr>
 			            	<th scope="row">강사명</th>
 			                <td>
-			                    <input type="text" id="recNm" name="recNm" title="신청시작일" value="<c:out value="${result.recNm}"/>"/>
+			                    <input type="text" id="recNm" name="recNm" title="강사명" value="<c:out value="${result.recNm}"/>"/>
 			                </td>
 			            </tr>
 			            <tr>
 			            	<th scope="row">신청인원수</th>
 			                <td>
-			                    <input type="number" id="maxAplyCnt" name="maxAplyCnt" title="신청시작일" value="<c:out value="${result.maxAplyCnt}"/>"/>명
+			                    <input type="number" id="maxAplyCnt" name="maxAplyCnt" title="신청인원수" value="<c:out value="${result.maxAplyCnt}"/>"/>명
 			                </td>
 			            </tr>
 			            <tr>
