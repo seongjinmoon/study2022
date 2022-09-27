@@ -29,6 +29,13 @@ public class ReservationAdminController {
 	//예약정보 목록 가져오기
 	@RequestMapping(value = "/admin/rsv/rsvSelectList.do")
 	public String rsvSelectList(@ModelAttribute("searchVO") ReservationVO searchVO,  HttpServletRequest request, ModelMap model) throws Exception{
+		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
+		if(user == null || EgovStringUtil.isEmpty(user.getId())){
+	    	model.addAttribute("message", "로그인 후 사용가능합니다.");
+	    	return "forward:/admin/rsv/rsvSelectList.do";
+		}else {
+			model.addAttribute("USER_INFO", user);
+		}
 		
 		PaginationInfo paginationInfo = new PaginationInfo();
 
@@ -47,9 +54,6 @@ public class ReservationAdminController {
 		
 		paginationInfo.setTotalRecordCount(totCnt);
 		model.addAttribute("paginationInfo", paginationInfo);
-		
-		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
-		model.addAttribute("USER_INFO", user);
 		
 		return "admin/rsv/RsvSelectList";
 	}
@@ -72,7 +76,7 @@ public class ReservationAdminController {
 	@RequestMapping(value = "/admin/rsv/rsvRegist.do")
 	public String rsvRegist(@ModelAttribute("searchVO") ReservationVO ReservationVO, HttpServletRequest request, ModelMap model) throws Exception{
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
-	    if(user == null){
+		if(user == null || EgovStringUtil.isEmpty(user.getId())){
 	    	model.addAttribute("message", "로그인 후 사용가능합니다.");
 	    	return "forward:/admin/rsv/rsvSelectList.do";
 		}else {
@@ -99,7 +103,7 @@ public class ReservationAdminController {
 		}
 		
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
-	    if(user == null){
+		if(user == null || EgovStringUtil.isEmpty(user.getId())){
 	    	model.addAttribute("message", "로그인 후 사용가능합니다.");
 	    	return "forward:/admin/rsv/rsvSelectList.do";
 		}
@@ -122,7 +126,7 @@ public class ReservationAdminController {
 		}
 				
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
-	    if(user == null){
+		if(user == null || EgovStringUtil.isEmpty(user.getId())){
 	    	model.addAttribute("message", "로그인 후 사용가능합니다.");
 	    	return "forward:/admin/rsv/rsvSelectList.do";
 		}
@@ -140,7 +144,7 @@ public class ReservationAdminController {
 	@RequestMapping(value = "/admin/rsv/rsvDelete.do")
 	public String rsvDelete(@ModelAttribute("searchVO") ReservationVO searchVO, HttpServletRequest request, ModelMap model) throws Exception{
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
-	    if(user == null){
+		if(user == null || EgovStringUtil.isEmpty(user.getId())){
 	    	model.addAttribute("message", "로그인 후 사용가능합니다.");
 	    	return "forward:/admin/rsv/rsvSelectList.do";
 		}

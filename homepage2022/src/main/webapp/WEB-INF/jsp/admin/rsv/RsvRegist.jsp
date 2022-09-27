@@ -147,23 +147,20 @@ $(document).ready(function(){
 	//datepicker
 	$(".datepicker").datepicker({
 		dateFormat: 'yy-mm-dd',
-		prevText: '이전 달',
-        nextText: '다음 달',
-        monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-        monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-        dayNames: ['일', '월', '화', '수', '목', '금', '토'],
-        dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
-        dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-        showMonthAfterYear: true,
-        yearSuffix: '년'
+		prevText: '이전 달', // 이전 버튼 title
+        nextText: '다음 달', // 다음 버튼 title
+        monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'], // 월 표시
+        dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], // 요일 표시
+        showMonthAfterYear: true, // 연도 다음에 월 표시 여부
+        yearSuffix: '년' // 연도 숫자다음에 나올 글자
 	});
 	
-	$('.timepicker').timepicker({
+	$(".timepicker").timepicker({
 	    timeFormat: 'HH:mm',
-	    interval: 60,
-	    minTime: '10',
-	    maxTime: '18:00',
-	    startTime: '10:00',
+	    interval: 60, //시간 간격
+	    minTime: '10:00', //시작시간
+	    maxTime: '18:00', //종료시간
+	    startTime: '10:00', //드랍다운 첫번째 값(11시로 하면 10시가 젤 밑으로 감)
 	    dropdown: true,
 	    scrollbar: true
 	});

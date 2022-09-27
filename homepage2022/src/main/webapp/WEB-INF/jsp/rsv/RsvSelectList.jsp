@@ -32,7 +32,7 @@
 		<div id="contents">
 			<%-- 검색영역 --%>
 			<div id="bbs_search">
-		        <form name="frm" method="post" action="/admin/rsv/rsvSelectList.do">
+		        <form name="frm" method="post" action="/rsv/selectList.do">
 					<fieldset>
 						<legend>검색조건입력폼</legend>
 						<label for="ftext" class="hdn">검색분류선택</label>
@@ -111,18 +111,24 @@
 								</tr>
 						  </c:forEach>
 						  
-						  <%-- 글이 없을 경우 --%>
+						  <%-- 결과 없을 경우 --%>
 						  <c:if test="${fn:length(resultList) == 0}">
-					    	<tr class="empty"><td colspan="7">검색 데이터가 없습니다.</td></tr>
+					    	<tr class="empty"><td colspan="8">검색 데이터가 없습니다.</td></tr>
 					    </c:if>
 		                </tbody>
 		            </table>
 		        </div>
 			    <div id="paging">
-			    	<c:url var="pageUrl" value="//admin/rsv/rsvSelectList.do${_BASE_PARAM}"/>
+			    	<c:url var="pageUrl" value="/rsv/selectList.do${_BASE_PARAM}"/>
 					<c:set var="pagingParam"><c:out value="${pageUrl}"/></c:set>
 				    <ui:pagination paginationInfo="${paginationInfo}" type="image" jsFunction="${pagingParam}"/>
 			    </div>
+			    
+			    <c:if test="${not empty USER_INFO.id}">
+				    <div class="btn-cont ar">
+				    	<a href="/rsv/selectApplyList.do" class="btn spot">신청내역 확인</a>
+					</div>
+				</c:if>
 			</div>
 		</div>
 	</div>
