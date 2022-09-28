@@ -74,7 +74,7 @@
 				                    		<c:out value="${result.chargerNm}"/>(<c:out value="${result.frstRegisterId}"/>)
 				                    	</a>
 				                    </td>
-				                    <td><fmt:formatDate value="${result.frstRegistPnttm}"  pattern="yyyy-MM-dd"/></td>
+				                    <td><fmt:formatDate value="${result.frstRegistPnttm}"  pattern="yyyy-MM-dd HH:mm:ss"/></td>
 				                    <td>
 				                    	<c:choose>
 				                    		<c:when test="${result.confmSeCode eq 'R'}">신청 접수 중</c:when>

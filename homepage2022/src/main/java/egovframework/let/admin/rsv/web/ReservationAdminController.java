@@ -32,7 +32,7 @@ public class ReservationAdminController {
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 		if(user == null || EgovStringUtil.isEmpty(user.getId())){
 	    	model.addAttribute("message", "로그인 후 사용가능합니다.");
-	    	return "forward:/admin/rsv/rsvSelectList.do";
+	    	return "forward:/index.do";
 		}else {
 			model.addAttribute("USER_INFO", user);
 		}
@@ -78,7 +78,7 @@ public class ReservationAdminController {
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 		if(user == null || EgovStringUtil.isEmpty(user.getId())){
 	    	model.addAttribute("message", "로그인 후 사용가능합니다.");
-	    	return "forward:/admin/rsv/rsvSelectList.do";
+	    	return "forward:/index.do";
 		}else {
 			model.addAttribute("USER_INFO", user);
 		}
@@ -105,7 +105,7 @@ public class ReservationAdminController {
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 		if(user == null || EgovStringUtil.isEmpty(user.getId())){
 	    	model.addAttribute("message", "로그인 후 사용가능합니다.");
-	    	return "forward:/admin/rsv/rsvSelectList.do";
+	    	return "forward:/index.do";
 		}
 	    
 	    searchVO.setUserId(user.getId());
@@ -128,7 +128,7 @@ public class ReservationAdminController {
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 		if(user == null || EgovStringUtil.isEmpty(user.getId())){
 	    	model.addAttribute("message", "로그인 후 사용가능합니다.");
-	    	return "forward:/admin/rsv/rsvSelectList.do";
+	    	return "forward:/index.do";
 		}
 	    
 	    searchVO.setUserId(user.getId());
@@ -146,7 +146,7 @@ public class ReservationAdminController {
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 		if(user == null || EgovStringUtil.isEmpty(user.getId())){
 	    	model.addAttribute("message", "로그인 후 사용가능합니다.");
-	    	return "forward:/admin/rsv/rsvSelectList.do";
+	    	return "forward:/index.do";
 		}
 	    
 	    searchVO.setUserId(user.getId());

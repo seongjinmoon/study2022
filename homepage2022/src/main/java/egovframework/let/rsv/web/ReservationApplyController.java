@@ -34,7 +34,39 @@ public class ReservationApplyController {
 	@Resource(name = "reservationService")
     private ReservationService reservationService;
 	
-	//예약정보 등록/수정
+	//예약여부 체크
+	/* web.xml json 추가 작업 해야 함 */
+	@RequestMapping(value = "/rsv/rsvCheck.json")
+	public void rsvCheck(@ModelAttribute("searchVO") ReservationApplyVO searchVO, HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception{
+		String succcessYn = "Y";
+		String message = "성공";
+		
+		JSONObject jo = new JSONObject();
+    	response.setContentType("text/javascript; charset=utf-8");
+    	
+    	LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
+    	if(user == null || EgovStringUtil.isEmpty(user.getId())){
+    		succcessYn = "N";
+    		message = "로그인 후 사용가능합니다.";
+		}
+    	searchVO.setUserId(user.getId());
+    	
+    	ReservationApplyVO result = reservationApplyService.rsvCheck(searchVO);
+    	if(!EgovStringUtil.isEmpty(result.getErrorCode())){
+    		succcessYn = "N";
+    		message = result.getMessage();
+    	}
+    	
+    	jo.put("successYn", succcessYn);
+		jo.put("message", message);
+		
+		PrintWriter printwriter = response.getWriter();
+    	printwriter.println(jo.toString());
+		printwriter.flush();
+		printwriter.close();
+	}
+		
+	//예약자정보 등록/수정
 	@RequestMapping(value = "/rsv/rsvApplyRegist.do")
 	public String rsvApplyRegist(@ModelAttribute("searchVO") ReservationApplyVO searchVO, HttpServletRequest request, ModelMap model) throws Exception{
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
@@ -181,37 +213,6 @@ public class ReservationApplyController {
 	    reservationApplyService.deleteReservationApply(searchVO);
 		
 	    return "forward:/rsv/selectApplyList.do";
-	}
-	
-	//예약여부 체크
-	@RequestMapping(value = "/rsv/rsvCheck.json")
-	public void rsvCheck(@ModelAttribute("searchVO") ReservationApplyVO searchVO, HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception{
-		String succcessYn = "Y";
-		String message = "성공";
-		
-		JSONObject jo = new JSONObject();
-    	response.setContentType("text/javascript; charset=utf-8");
-    	
-    	LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
-    	if(user == null || EgovStringUtil.isEmpty(user.getId())){
-    		succcessYn = "N";
-    		message = "로그인 후 사용가능합니다.";
-		}
-    	searchVO.setUserId(user.getId());
-    	
-    	ReservationApplyVO result = reservationApplyService.rsvCheck(searchVO);
-    	if(!EgovStringUtil.isEmpty(result.getErrorCode())){
-    		succcessYn = "N";
-    		message = result.getMessage();
-    	}
-    	
-    	jo.put("successYn", succcessYn);
-		jo.put("message", message);
-		
-		PrintWriter printwriter = response.getWriter();
-    	printwriter.println(jo.toString());
-		printwriter.flush();
-		printwriter.close();
 	}
 	
 }
