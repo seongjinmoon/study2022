@@ -112,6 +112,7 @@ $(document).ready(function(){
 		}
 	});
 	
+	//신청가능여부 체크 후 진행
 	$("#btn-apply").click(function(){
 		var href = $(this).attr("href");
 		

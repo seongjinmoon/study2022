@@ -34,7 +34,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.springframework.stereotype.Service;
 
 
-@Service("reservationServiceApply")
+@Service("reservationApplyService")
 public class ReservationApplyServiceImpl extends EgovAbstractServiceImpl implements ReservationApplyService {
 
     @Resource(name = "propertiesService")

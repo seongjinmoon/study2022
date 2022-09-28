@@ -28,8 +28,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ReservationApplyController {
 
 	
-	@Resource(name = "reservationServiceApply")
-    private ReservationApplyService reservationServiceApply;
+	@Resource(name = "reservationApplyService")
+    private ReservationApplyService reservationApplyService;
 	
 	@Resource(name = "reservationService")
     private ReservationService reservationService;
@@ -55,7 +55,7 @@ public class ReservationApplyController {
 		//예약정보
 	    ReservationApplyVO result = new ReservationApplyVO();
 		if(!EgovStringUtil.isEmpty(searchVO.getReqstId())) {
-			result = reservationServiceApply.selectReservationApply(searchVO);
+			result = reservationApplyService.selectReservationApply(searchVO);
 		}
 		
 		model.addAttribute("result", result);
@@ -82,7 +82,7 @@ public class ReservationApplyController {
 	    searchVO.setUserId(user.getId());
 	    searchVO.setCreatIp(request.getRemoteAddr());
 	    
-	    ReservationApplyVO result = reservationServiceApply.insertReservationApply(searchVO);
+	    ReservationApplyVO result = reservationApplyService.insertReservationApply(searchVO);
 	    if(!EgovStringUtil.isEmpty(result.getErrorCode())) {
 	    	model.addAttribute("message", result.getMessage());
 	    }else{
@@ -116,10 +116,10 @@ public class ReservationApplyController {
 		searchVO.setLastIndex(paginationInfo.getLastRecordIndex());
 		searchVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
 		
-		List<EgovMap> resultList = reservationServiceApply.selectReservationApplyList(searchVO);
+		List<EgovMap> resultList = reservationApplyService.selectReservationApplyList(searchVO);
 		model.addAttribute("resultList", resultList);
 		
-		int totCnt = reservationServiceApply.selectReservationApplyListCnt(searchVO);
+		int totCnt = reservationApplyService.selectReservationApplyListCnt(searchVO);
 		
 		paginationInfo.setTotalRecordCount(totCnt);
 		model.addAttribute("paginationInfo", paginationInfo);
@@ -138,7 +138,7 @@ public class ReservationApplyController {
 			model.addAttribute("USER_INFO", user);
 		}
 		
-		ReservationApplyVO result = reservationServiceApply.selectReservationApply(searchVO);
+		ReservationApplyVO result = reservationApplyService.selectReservationApply(searchVO);
 		
 		model.addAttribute("result", result);
 		return "rsv/RsvApplySelect";
@@ -160,7 +160,7 @@ public class ReservationApplyController {
 	    
 	    searchVO.setUserId(user.getId());
 	    
-	    reservationServiceApply.updateReservationApply(searchVO);
+	    reservationApplyService.updateReservationApply(searchVO);
 		
 		//이중 서브밋 방지
 		request.getSession().setAttribute("sessionReservation", searchVO);
@@ -178,7 +178,7 @@ public class ReservationApplyController {
 	    
 	    searchVO.setUserId(user.getId());
 	    
-	    reservationServiceApply.deleteReservationApply(searchVO);
+	    reservationApplyService.deleteReservationApply(searchVO);
 		
 	    return "forward:/rsv/selectApplyList.do";
 	}
@@ -199,7 +199,7 @@ public class ReservationApplyController {
 		}
     	searchVO.setUserId(user.getId());
     	
-    	ReservationApplyVO result = reservationServiceApply.rsvCheck(searchVO);
+    	ReservationApplyVO result = reservationApplyService.rsvCheck(searchVO);
     	if(!EgovStringUtil.isEmpty(result.getErrorCode())){
     		succcessYn = "N";
     		message = result.getMessage();

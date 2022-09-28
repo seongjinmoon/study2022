@@ -39,8 +39,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class ReservationAdminApplyController {
 
 	
-	@Resource(name = "reservationServiceApply")
-    private ReservationApplyService reservationServiceApply;
+	@Resource(name = "reservationApplyService")
+    private ReservationApplyService reservationApplyService;
 	
 	@Resource(name = "reservationService")
     private ReservationService reservationService;
@@ -60,7 +60,7 @@ public class ReservationAdminApplyController {
 		//관리자
 		searchVO.setMngAt("Y");
 		
-		List<EgovMap> resultList = reservationServiceApply.selectReservationApplyList(searchVO);
+		List<EgovMap> resultList = reservationApplyService.selectReservationApplyList(searchVO);
 		model.addAttribute("resultList", resultList);
 		
 		//엑셀 다운로드
@@ -82,7 +82,7 @@ public class ReservationAdminApplyController {
 			model.addAttribute("USER_INFO", user);
 		}
 		
-		ReservationApplyVO result = reservationServiceApply.selectReservationApply(searchVO);
+		ReservationApplyVO result = reservationApplyService.selectReservationApply(searchVO);
 		
 		model.addAttribute("result", result);
 		return "admin/rsv/RsvApplySelect";
@@ -104,7 +104,7 @@ public class ReservationAdminApplyController {
 	    
 	    searchVO.setUserId(user.getId());
 	    
-	    reservationServiceApply.updateReservationConfirm(searchVO);
+	    reservationApplyService.updateReservationConfirm(searchVO);
 		
 		//이중 서브밋 방지
 		request.getSession().setAttribute("sessionReservation", searchVO);
@@ -122,7 +122,7 @@ public class ReservationAdminApplyController {
 	    
 	    searchVO.setUserId(user.getId());
 	    
-	    reservationServiceApply.deleteReservationApply(searchVO);
+	    reservationApplyService.deleteReservationApply(searchVO);
 		
 	    return "redirect:/admin/rsv/selectApplyList.do";
 	}
@@ -149,7 +149,7 @@ public class ReservationAdminApplyController {
 		//관리자
 		searchVO.setMngAt("Y");
 		//목록
-		List<EgovMap> resultList = reservationServiceApply.selectReservationApplyList(searchVO);
+		List<EgovMap> resultList = reservationApplyService.selectReservationApplyList(searchVO);
 		
 		if(resultList != null) {
 			EgovMap tmpVO = null;
@@ -192,7 +192,7 @@ public class ReservationAdminApplyController {
 				for(FileVO file : result){
 					if("xls".equals(file.getFileExtsn())||"xlsx".equals(file.getFileExtsn())){
 						searchVO.setCreatIp(request.getRemoteAddr());
-						resultMap = reservationServiceApply.excelUpload(file, searchVO);
+						resultMap = reservationApplyService.excelUpload(file, searchVO);
 						if(!(Boolean)resultMap.get("success")){
 							res.setMessage(String.valueOf(resultMap.get("msg")));
 							ArrayList resultList = (ArrayList) resultMap.get("resultList");
