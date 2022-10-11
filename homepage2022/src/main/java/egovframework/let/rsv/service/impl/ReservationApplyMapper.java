@@ -34,7 +34,7 @@ public interface ReservationApplyMapper {
 	void updateReservationConfirm(ReservationApplyVO vo) throws Exception;
 	
 	//예약가능여부 확인
-	void rsvCheck(ReservationApplyVO vo) throws Exception;
+	//void rsvCheck(ReservationApplyVO vo) throws Exception;
 	
 	//임시예약자 등록하기
 	void insertReservationApplyTemp(ReservationApplyVO vo) throws Exception;
