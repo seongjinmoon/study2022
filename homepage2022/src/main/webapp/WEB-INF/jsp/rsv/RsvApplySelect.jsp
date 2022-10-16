@@ -113,7 +113,7 @@
 					<c:if test="${result.confmSeCode eq 'R'}">
 						<a href="/rsv/rsvApplyUpdate.do" id="btn-upt" class="btn">수정</a>
 					
-						<c:url var="delUrl" value="/admin/rsv/rsvApplyDelete.do${_BASE_PARAM}">
+						<c:url var="delUrl" value="/rsv/rsvApplyDelete.do${_BASE_PARAM}">
 							<c:param name="reqstId" value="${result.reqstId}"/>
 						</c:url>
 			    		<a href="${delUrl}" id="btn-del" class="btn"><i class="ico-del"></i> 삭제</a>

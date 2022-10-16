@@ -173,6 +173,10 @@ public class ReservationApplyController {
 		ReservationApplyVO result = reservationApplyService.selectReservationApply(searchVO);
 		
 		model.addAttribute("result", result);
+		
+		//이중서브밋방지
+		request.getSession().removeAttribute("sessionReservationApply");
+		
 		return "rsv/RsvApplySelect";
 	}
 	
@@ -194,8 +198,9 @@ public class ReservationApplyController {
 	    
 	    reservationApplyService.updateReservationApply(searchVO);
 		
-		//이중 서브밋 방지
-		request.getSession().setAttribute("sessionReservation", searchVO);
+	    //이중 서브밋 방지
+  		request.getSession().setAttribute("sessionReservationApply", searchVO);
+  		
 		return "forward:/rsv/selectApplyList.do";
 	}
 	

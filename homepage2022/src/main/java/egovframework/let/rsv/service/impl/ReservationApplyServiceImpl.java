@@ -21,6 +21,15 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+
+import org.apache.poi.hssf.usermodel.HSSFDateUtil;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 /*
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -45,10 +54,10 @@ public class ReservationApplyServiceImpl extends EgovAbstractServiceImpl impleme
     
     @Resource(name = "egovReqIdGnrService")
     private EgovIdGnrService idgenService;
-    /*
+    
     @Resource(name = "egovReqTempIdGnrService")
     private EgovIdGnrService idgenTempService;
-    */
+    
     @Resource(name = "reservationService")
     private ReservationService reservationService;
     
@@ -130,7 +139,7 @@ public class ReservationApplyServiceImpl extends EgovAbstractServiceImpl impleme
   		
   		return vo;
 	}
-	/*
+	
 	//예약자 엑셀 업로드
 	public Map<String, Object> excelUpload(FileVO fileVO, ReservationApplyVO vo) throws Exception{
 		String fileExt = fileVO.getFileExtsn();
@@ -164,18 +173,17 @@ public class ReservationApplyServiceImpl extends EgovAbstractServiceImpl impleme
 	    	
 	    	//int sheetNum = wb.getNumberOfSheets(); //시트갯수 가져오기
 	    	if(wb != null) {
-		    	Sheet sheet = wb.getSheetAt(0);
+		    	Sheet sheet = wb.getSheetAt(0);//첫번째 시트
 		    	int rows = sheet.getPhysicalNumberOfRows(); //행 갯수 가져오기
-		    	//System.out.println(rows+"--------rows---------");
-	            for(int r = 1; r < rows; r++){ //row 루프            	
+	            for(int r = 1; r < rows; r++){ //row 루프 
 	            	Row row = sheet.getRow(r); //row 가져오기
 	                if(row != null) {
-	                	int cells = row.getPhysicalNumberOfCells();
 		                for(int c = 0; c < 4; c++) {	//cell 가져오기
 		                	Cell cell = row.getCell(c);
 		                	result = true;
 		                	if(cell != null) {
 			                	String value = "";
+			                	//셀 타입에 맞춰서 값 호출
 			                	switch(cell.getCellType()) {
 				                	case Cell.CELL_TYPE_FORMULA:
 				                		if(!EgovStringUtil.isEmpty(cell.toString())) {
@@ -323,5 +331,5 @@ public class ReservationApplyServiceImpl extends EgovAbstractServiceImpl impleme
 	    
 		return map;
 	}
-	*/
+	
 }

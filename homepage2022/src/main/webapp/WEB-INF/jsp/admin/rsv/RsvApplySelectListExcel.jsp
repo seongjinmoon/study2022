@@ -17,13 +17,11 @@
   <title>목록</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <style type="text/css"> 
-<!--
 body {
   font-size:12px;
   margin-left: 0px; 
   font-family:돋움; 
 }
--->
 </style>
 
 </head>

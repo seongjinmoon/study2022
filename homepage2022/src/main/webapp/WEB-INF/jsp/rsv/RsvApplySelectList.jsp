@@ -124,7 +124,7 @@ $(document).ready(function(){
 			alert("신청 승인 상태에서는 반려하실 수 없습니다.");
 			return false;
 		}else if(status == "X"){
-			alert("신청 승인 상태에서는 반려하실 수 없습니다.");
+			alert("신청 반려 상태에서는 반려하실 수 없습니다.");
 			return false;
 		}
 	});

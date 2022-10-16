@@ -9,6 +9,7 @@ import egovframework.com.cmm.LoginVO;
 import egovframework.com.cmm.service.EgovFileMngUtil;
 import egovframework.com.cmm.service.FileVO;
 import egovframework.com.cmm.service.Globals;
+import egovframework.com.cmm.service.JsonResponse;
 //import egovframework.com.cmm.service.JsonResponse;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import egovframework.let.rsv.service.ReservationApplyService;
@@ -84,6 +85,9 @@ public class ReservationAdminApplyController {
 		
 		ReservationApplyVO result = reservationApplyService.selectReservationApply(searchVO);
 		
+		//이중서브밋방지
+		request.getSession().removeAttribute("sessionReservationApply");
+		
 		model.addAttribute("result", result);
 		return "admin/rsv/RsvApplySelect";
 	}
@@ -93,7 +97,7 @@ public class ReservationAdminApplyController {
 	public String updateReservationConfirm(@ModelAttribute("searchVO") ReservationApplyVO searchVO, HttpServletRequest request, ModelMap model) throws Exception{
 		//이중 서브밋 방지
 		if(request.getSession().getAttribute("sessionReservationApply") != null){
-			return "redirect:/admin/rsv/selectApplyList.do";
+			return "forward:/admin/rsv/selectApplyList.do";
 		}
 				
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
@@ -107,8 +111,8 @@ public class ReservationAdminApplyController {
 	    reservationApplyService.updateReservationConfirm(searchVO);
 		
 		//이중 서브밋 방지
-		request.getSession().setAttribute("sessionReservation", searchVO);
-		return "redirect:/admin/rsv/selectApplyList.do";
+		request.getSession().setAttribute("sessionReservationApply", searchVO);
+		return "forward:/admin/rsv/selectApplyList.do";
 	}
 	
 	//예약정보 삭제하기
@@ -124,11 +128,9 @@ public class ReservationAdminApplyController {
 	    
 	    reservationApplyService.deleteReservationApply(searchVO);
 		
-	    return "redirect:/admin/rsv/selectApplyList.do";
+	    return "forward:/admin/rsv/selectApplyList.do";
 	}
 	
-	
-	/*
 	//예약자정보 엑셀 다운로드
 	@RequestMapping(value = "/admin/rsv/excel.do")
 	public ModelAndView excel(@ModelAttribute("searchVO") ReservationApplyVO searchVO,  HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception{
@@ -178,7 +180,6 @@ public class ReservationAdminApplyController {
 	//엑셀업로드 
     @RequestMapping(value="/admin/rsv/excelUpload.json",method=RequestMethod.POST)
     public @ResponseBody JsonResponse excelUpload(@ModelAttribute ReservationApplyVO searchVO, ModelMap model,MultipartHttpServletRequest multiRequest,HttpServletRequest request, HttpServletResponse response) throws Exception {
-    	LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
     	JsonResponse res = new JsonResponse();
     	res.setSuccess(true);
     	
@@ -208,6 +209,6 @@ public class ReservationAdminApplyController {
     	}
     	return res;
     }
-	*/
+	
 	
 }
