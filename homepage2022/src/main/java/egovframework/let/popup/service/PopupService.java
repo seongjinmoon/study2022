@@ -24,5 +24,9 @@ public interface PopupService {
 	//팝업 삭제하기
 	public void deletePopup(PopupVO vo) throws Exception;
 	
+	//서비스 팝업 목록 가져오기
+	public List<EgovMap> selectPopupServiceList(PopupVO vo) throws Exception;
+	
+	
 	
 }

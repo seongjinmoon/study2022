@@ -173,7 +173,7 @@ $(document).on('click','#excelReg',function(e){
 		}
 	});
     
-    return false
+    return false;
 });
 </script>
 

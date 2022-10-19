@@ -85,7 +85,10 @@
 										<c:out value="${result.ntceEndde}"/>
 									</td>
 					               <td>
-					               		<a href="" class="btn spot">미리보기</a>
+					               		<c:url var="previewUrl" value="/popup/select.do">
+											<c:param name="popupId" value="${result.popupId}"/>
+										</c:url>
+					               		<a href="${previewUrl}" class="btn spot btn-preview" data-title="${result.popupTitleNm}" data-hlc="${result.popupHlc}" data-wlc="${result.popupWlc}" data-hsize="${result.popupHsize}" data-wsize="${result.popupWsize}">미리보기</a>
 					               </td>
 					               <td>
 					               		<c:url var="updateUrl" value="/admin/popup/regist.do${_BASE_PARAM}">
@@ -129,6 +132,20 @@
 <c:if test="${not empty message}">
 	alert("${message}");
 </c:if>
+
+//미리보기
+$(".btn-preview").click(function(){
+	var href = $(this).attr("href"),
+		title = $(this).data("title"),
+		hlc = $(this).data("hlc"),
+		wlc = $(this).data("wlc"),
+		hsize = $(this).data("hsize"),
+		wsize = $(this).data("wsize");
+	
+	//팝업오픈
+	window.open(href, title, "top=" + hlc + ", left=" + wlc + ", width=" + wsize + ", height=" + hsize);
+	return false;
+});
 
 //팝업 삭제
 $(".btn-del").click(function(){

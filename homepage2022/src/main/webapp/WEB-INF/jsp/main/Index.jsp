@@ -44,6 +44,8 @@
 	<!-- //site-body -->
 	
 	<%@ include file="/WEB-INF/jsp/main/inc/Footer.jsp"%>
+	
+	<c:import url="/popup/selectList.do" charEncoding="utf-8"/>
 
 <script>
 $(document).ready(function(){

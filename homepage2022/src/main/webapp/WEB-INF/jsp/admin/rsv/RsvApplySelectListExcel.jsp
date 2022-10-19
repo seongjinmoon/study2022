@@ -50,7 +50,7 @@ body {
 	    </c:forEach>
 		<c:if test="${fn:length(resultList) == 0}">
 	      <tr>
-	      	<td colspan="3">
+	      	<td colspan="5">
 	        	신청자가 없습니다.
 	        </td>
 	      </tr>

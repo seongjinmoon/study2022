@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class PopupController {
+public class PopupAdminController {
 	
 	@Resource(name = "popupService")
     private PopupService popupService;
@@ -58,7 +58,7 @@ public class PopupController {
 	
 	//팝업 등록/수정
 	@RequestMapping("/admin/popup/regist.do")
-	public String tempRegist(@ModelAttribute("searchVO") PopupVO popupVO, HttpServletRequest request, ModelMap model) throws Exception{
+	public String regist(@ModelAttribute("searchVO") PopupVO popupVO, HttpServletRequest request, ModelMap model) throws Exception{
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 		if(user == null || EgovStringUtil.isEmpty(user.getId())){
 	    	model.addAttribute("message", "로그인 후 사용가능합니다.");

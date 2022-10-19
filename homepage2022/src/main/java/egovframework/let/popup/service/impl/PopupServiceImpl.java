@@ -61,4 +61,12 @@ public class PopupServiceImpl extends EgovAbstractServiceImpl implements PopupSe
 		popupMapper.deletePopup(vo);
 	}
 	
+	//서비스 팝업 목록 가져오기
+	public List<EgovMap> selectPopupServiceList(PopupVO vo) throws Exception{
+		//캐시 메로지 작업
+		
+		
+  		return popupMapper.selectPopupList(vo);
+  	}
+	
 }

@@ -27,6 +27,7 @@ public class ExcelDownloadView extends AbstractExcelView {//AbstractExcelView
 		List<Object> valueMap = (List<Object>)dataMap.get("valueMap");
 		
 		HSSFCell cell = null;
+		//셀 스타일 설정 값
 		HSSFCellStyle style = this.getHSSFCellStyleByHeader(wb);
  
 		HSSFSheet sheet = wb.createSheet(title);
@@ -34,7 +35,6 @@ public class ExcelDownloadView extends AbstractExcelView {//AbstractExcelView
 		if(columMap != null && columMap.size() > 0) {
 			//header정보 등록
 			for(int i = 0; i < columMap.size(); i++) {
-				
 				sheet.setColumnWidth(i, 500 * 8);
 				
 				cell = getCell(sheet, 0, i); //getCell(sheet, 0, i);
@@ -45,20 +45,16 @@ public class ExcelDownloadView extends AbstractExcelView {//AbstractExcelView
 			//body정보 등록
 			Object obj = null;
 			for (int i = 0; i < valueMap.size(); i++) {
-	 
-					Map<String, Object> data = (Map<String, Object>) valueMap.get(i);
-	
-					for(int di = 0; di < columMap.size(); di++) {
-						obj = data.get(columMap.get(di));
-						cell = getCell(sheet, 1 + i, di); //getCell(sheet, 1 + i, di);
-						if(obj instanceof String) {
-							setText(cell, (String)obj); //setText(cell, (String)obj);
-						} else if(obj instanceof Integer || obj instanceof Long  || obj instanceof Double || obj instanceof BigDecimal || obj instanceof Float) {
-							cell.setCellValue(Double.valueOf(String.valueOf(obj)));
-						} else if(obj instanceof Long) {
-							setText(cell, (String)obj); //setText(cell, (String)obj);
-						}
+				Map<String, Object> data = (Map<String, Object>) valueMap.get(i);
+				for(int di = 0; di < columMap.size(); di++) {
+					obj = data.get(columMap.get(di));
+					cell = getCell(sheet, 1 + i, di); //getCell(sheet, 1 + i, di);
+					if(obj instanceof String) {
+						setText(cell, (String)obj); //setText(cell, (String)obj);
+					} else if(obj instanceof Integer || obj instanceof Long  || obj instanceof Double || obj instanceof BigDecimal || obj instanceof Float) {
+						cell.setCellValue(Double.valueOf(String.valueOf(obj)));
 					}
+				}
 			}
 		}
 	}
