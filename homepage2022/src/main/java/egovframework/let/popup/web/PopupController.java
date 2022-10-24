@@ -26,7 +26,7 @@ public class PopupController {
 	
 	//팝업 목록 가져오기
 	@RequestMapping("/popup/popupService.do")
-	public String selectList(@ModelAttribute("searchVO") PopupVO popupVO, HttpServletRequest request, ModelMap model) throws Exception{
+	public String popupService(@ModelAttribute("searchVO") PopupVO popupVO, HttpServletRequest request, ModelMap model) throws Exception{
 		popupVO.setRecordCountPerPage(Integer.MAX_VALUE);
 		popupVO.setFirstIndex(0);
 		
