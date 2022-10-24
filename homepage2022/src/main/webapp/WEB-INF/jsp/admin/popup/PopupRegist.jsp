@@ -79,25 +79,25 @@
 			                    ~ <input type="text" id="ntceEndde" class="datepicker" name="ntceEndde" title="게시종료일" value="<c:out value="${result.ntceEndde}"/>" readonly="readonly"/>
 			                </td>
 			            </tr>
-			            <tr>
+			            <tr class="type1">
 			            	<th scope="row">팝업창위치(가로)</th>
 			                <td>
 			                    <input type="number" id="popupWlc" name="popupWlc" title="팝업창위치(가로)" value="<c:out value="${result.popupWlc}"/>"/>PX
 			                </td>
 			            </tr>
-			            <tr>
+			            <tr class="type1">
 			            	<th scope="row">팝업창위치(세로)</th>
 			                <td>
 			                    <input type="number" id="popupHlc" name="popupHlc" title="팝업창위치(세로)" value="<c:out value="${result.popupHlc}"/>"/>PX
 			                </td>
 			            </tr>
-			            <tr>
+			            <tr class="type1">
 			            	<th scope="row">팝업창사이즈(가로)</th>
 			                <td>
 			                    <input type="number" id="popupWsize" name="popupWsize" title="팝업창사이즈(가로)" value="<c:out value="${result.popupWsize}"/>"/>PX
 			                </td>
 			            </tr>
-			            <tr>
+			            <tr class="type1">
 			            	<th scope="row">팝업창사이즈(세로)</th>
 			                <td>
 			                    <input type="number" id="popupHsize" name="popupHsize" title="팝업창사이즈(세로)" value="<c:out value="${result.popupHsize}"/>"/>PX
@@ -236,6 +236,17 @@ $(document).ready(function(){
 	$("#btn-del").click(function(){
 		if(!confirm("삭제하시겠습니까?")){
 			return false;
+		}
+	});
+	
+	//팝업유형
+	$("#sysTyCode").change(function(){
+		var sysTyCode = $(this).val();
+		
+		if(sysTyCode == "TYPE1"){
+			$(".type1").show();
+		}else{
+			$(".type1").hide();
 		}
 	});
 });

@@ -25,14 +25,15 @@ public class PopupController {
     private PopupService popupService;
 	
 	//팝업 목록 가져오기
-	@RequestMapping("/popup/selectList.do")
+	@RequestMapping("/popup/popupService.do")
 	public String selectList(@ModelAttribute("searchVO") PopupVO popupVO, HttpServletRequest request, ModelMap model) throws Exception{
 		popupVO.setRecordCountPerPage(Integer.MAX_VALUE);
+		popupVO.setFirstIndex(0);
 		
 		List<EgovMap> resultList = popupService.selectPopupServiceList(popupVO);
 		model.addAttribute("resultList", resultList);
 		
-		return "popup/PopupList";
+		return "popup/PopupService";
 	}
 	
 	//팝업 상세

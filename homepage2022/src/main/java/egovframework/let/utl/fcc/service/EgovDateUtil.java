@@ -398,7 +398,16 @@ public class EgovDateUtil {
 	public static String getToday() {
 		return getCurrentDate("");
 	}
-
+	
+	/**
+     * 날짜형태의 String의 날짜 포맷만을 변경해 주는 메서드
+     */
+    public static String getToday(String format){
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.KOREA);
+        return sdf.format(cal.getTime());
+    }
+	
 	/**
 	 * 현재(한국기준) 날짜정보를 얻는다.                     <BR>
 	 * 표기법은 yyyy-mm-dd                                  <BR>

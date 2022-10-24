@@ -2,12 +2,14 @@ package egovframework.let.popup.service.impl;
 
 import egovframework.let.popup.service.PopupService;
 import egovframework.let.popup.service.PopupVO;
-
+import egovframework.let.utl.fcc.service.EgovDateUtil;
 import egovframework.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import egovframework.rte.fdl.idgnr.EgovIdGnrService;
 import egovframework.rte.fdl.property.EgovPropertyService;
 import egovframework.rte.psl.dataaccess.util.EgovMap;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -27,6 +29,8 @@ public class PopupServiceImpl extends EgovAbstractServiceImpl implements PopupSe
     @Resource(name = "popupIdGnrService")
     private EgovIdGnrService idgenService;
     
+    private HashMap<String, List<EgovMap>> popupHash = new HashMap<String, List<EgovMap>>();
+    
     //팝업 목록 가져오기
   	public List<EgovMap> selectPopupList(PopupVO vo) throws Exception{
   		return popupMapper.selectPopupList(vo);
@@ -43,6 +47,9 @@ public class PopupServiceImpl extends EgovAbstractServiceImpl implements PopupSe
 		vo.setPopupId(id);
 		popupMapper.insertPopup(vo);
 		
+		//팝업목록 초기화
+		this.popupHash.remove("popupList");
+		
 		return id;
   	}
   	
@@ -54,19 +61,43 @@ public class PopupServiceImpl extends EgovAbstractServiceImpl implements PopupSe
 	//팝업 수정하기
 	public void updatePopup(PopupVO vo) throws Exception{
 		popupMapper.updatePopup(vo);
+		
+		//팝업목록 초기화
+		this.popupHash.remove("popupList");
 	}
 	
 	//팝업 삭제하기
 	public void deletePopup(PopupVO vo) throws Exception{
 		popupMapper.deletePopup(vo);
+		
+		//팝업목록 초기화
+		this.popupHash.remove("popupList");
 	}
 	
 	//서비스 팝업 목록 가져오기
 	public List<EgovMap> selectPopupServiceList(PopupVO vo) throws Exception{
-		//캐시 메로지 작업
+		List<EgovMap> popupList = new ArrayList<EgovMap>();
 		
+		//캐시 메모리에 팝업목록이 있는지 체크
+		if(!this.popupHash.containsKey("popupList")) {
+			List<EgovMap> resultList = popupMapper.selectPopupList(vo);
+			if(resultList != null && resultList.size() > 0){
+				for(int i = 0; i < resultList.size(); i++) {
+					long sl = Long.parseLong(resultList.get(i).get("ntceBgnde").toString().replaceAll("-", ""));
+		    		long el = Long.parseLong(resultList.get(i).get("ntceEndde").toString().replaceAll("-", ""));
+					long cl = Long.parseLong(EgovDateUtil.getToday("yyyyMMdd"));
+					if(cl <= el && cl >= sl) {
+						popupList.add(resultList.get(i));
+					}
+				}
+			}
+			this.popupHash.remove("popupList");
+			this.popupHash.put("popupList", popupList);
+		}else {
+			popupList = this.popupHash.get("popupList");
+		}
 		
-  		return popupMapper.selectPopupList(vo);
+  		return popupList;
   	}
 	
 }
