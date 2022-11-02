@@ -29,7 +29,11 @@ public class PopupServiceImpl extends EgovAbstractServiceImpl implements PopupSe
     @Resource(name = "popupIdGnrService")
     private EgovIdGnrService idgenService;
     
+    //팝업 리스트Hash
     private HashMap<String, List<EgovMap>> popupHash = new HashMap<String, List<EgovMap>>();
+    
+    //변수관련 Hash
+    private HashMap<String, String> cacheMap = new HashMap<String, String>();
     
     //팝업 목록 가져오기
   	public List<EgovMap> selectPopupList(PopupVO vo) throws Exception{
@@ -77,11 +81,17 @@ public class PopupServiceImpl extends EgovAbstractServiceImpl implements PopupSe
 	//서비스 팝업 목록 가져오기
 	public List<EgovMap> selectPopupServiceList(PopupVO vo) throws Exception{
 		List<EgovMap> popupList = new ArrayList<EgovMap>();
+		String cacheDay = this.cacheMap.get("today");
+		String today = EgovDateUtil.getToday("yyyyMMdd");
 		
 		//캐시 메모리에 팝업목록이 있는지 체크
-		if(!this.popupHash.containsKey("popupList")) {
+		if(!this.popupHash.containsKey("popupList") || !today.equals(cacheDay)) {
 			List<EgovMap> resultList = popupMapper.selectPopupList(vo);
 			if(resultList != null && resultList.size() > 0){
+				//날짜 저장
+				this.cacheMap.remove("today");
+				this.cacheMap.put("today", EgovDateUtil.getToday("yyyyMMdd"));
+				
 				for(int i = 0; i < resultList.size(); i++) {
 					long sl = Long.parseLong(resultList.get(i).get("ntceBgnde").toString().replaceAll("-", ""));
 		    		long el = Long.parseLong(resultList.get(i).get("ntceEndde").toString().replaceAll("-", ""));

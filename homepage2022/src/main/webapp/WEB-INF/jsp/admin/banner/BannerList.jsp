@@ -11,7 +11,7 @@
 <meta http-equiv="Content-Language" content="ko" >
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-<title>한국폴리텍 팝업관리</title>
+<title>한국폴리텍 예약관리</title>
 <!-- BBS Style -->
 <link href="/asset/BBSTMP_0000000000001/style.css" rel="stylesheet" />
 <!-- 공통 Style -->
@@ -32,12 +32,12 @@
 		<div id="contents">
 			<%-- 검색영역 --%>
 			<div id="bbs_search">
-				<form name="frm" method="post" action="/admin/popup/selectList.do">
+				<form name="frm" method="post" action="/admin/banner/selectList.do">
 					<fieldset>
 						<legend>검색조건입력폼</legend>
 						<label for="ftext" class="hdn">검색분류선택</label>
 						<select name="searchCondition" id="ftext">
-							<option value="0" <c:if test="${searchVO.searchCondition eq '0'}">selected="selected"</c:if>>팝업명</option>
+							<option value="0" <c:if test="${searchVO.searchCondition eq '0'}">selected="selected"</c:if>>배너명</option>
    							<option value="1" <c:if test="${searchVO.searchCondition eq '1'}">selected="selected"</c:if>>내용</option>
 						</select>
 						<label for="inp_text" class="hdn">검색어입력</label>
@@ -61,10 +61,11 @@
             			<thead>
 			                <tr>
 			                    <th class="num" scope="col">번호</th>
-			                    <th class="tit" scope="col">팝업명</th>
-			                    <th scope="col">팝업유형</th>
-			                    <th scope="col">팝업기간</th>
-			                    <th scope="col">미리보기</th>
+			                    <th class="tit" scope="col">배너명</th>
+			                    <th scope="col">이미지</th>
+			                    <th scope="col">배너기간</th>
+			                    <th scope="col">URL</th>
+			                    <th scope="col">새창보기여부</th>
 			                    <th scope="col">관리</th>
 			                </tr>
             			</thead>
@@ -72,33 +73,28 @@
                 			<c:forEach var="result" items="${resultList}" varStatus="status">
 								<tr>
 									<td class="num"><c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageUnit) - (status.count - 1)}" /></td>
-									<td class="tit"><c:out value="${result.popupTitleNm}"/></td>
-									<td>
-										<c:choose>
-											<c:when test="${result.sysTyCode eq 'TYPE1'}">일반팝업</c:when>
-											<c:when test="${result.sysTyCode eq 'TYPE2'}">레이어팝업</c:when>
-											<c:otherwise>-</c:otherwise>
-										</c:choose>
-									</td>
+									<td class="tit"><c:out value="${result.bannerNm}"/></td>
+									<td>이미지</td>
 									<td>
 										<c:out value="${result.ntceBgnde}"/>~<br/>
 										<c:out value="${result.ntceEndde}"/>
 									</td>
+					               <td><c:out value="${result.liknUrl}"/></td>
 					               <td>
-					               		<c:url var="previewUrl" value="/popup/select.do">
-											<c:param name="popupId" value="${result.popupId}"/>
-										</c:url>
-					               		<a href="${previewUrl}" class="btn spot btn-preview" data-title="${result.popupTitleNm}" data-hlc="${result.popupHlc}" data-wlc="${result.popupWlc}" data-hsize="${result.popupHsize}" data-wsize="${result.popupWsize}">미리보기</a>
+					               	<c:choose>
+					               		<c:when test="${result.popupTrgetAt eq 'Y'}">예</c:when>
+					               		<c:otherwise>아니오</c:otherwise>
+					               	</c:choose>
 					               </td>
 					               <td>
-					               		<c:url var="updateUrl" value="/admin/popup/regist.do${_BASE_PARAM}">
-											<c:param name="popupId" value="${result.popupId}"/>
+					               		<c:url var="updateUrl" value="/admin/banner/regist.do${_BASE_PARAM}">
+											<c:param name="bannerId" value="${result.bannerId}"/>
 											<c:param name="pageIndex" value="${searchVO.pageIndex}" />
 										</c:url>
 										<a href="${updateUrl}" class="btn spot">수정</a>
 										<br/><br/>
-										<c:url var="deleteUrl" value="/admin/popup/delete.do${_BASE_PARAM}">
-											<c:param name="popupId" value="${result.popupId}"/>
+										<c:url var="deleteUrl" value="/admin/banner/delete.do${_BASE_PARAM}">
+											<c:param name="bannerId" value="${result.bannerId}"/>
 											<c:param name="pageIndex" value="${searchVO.pageIndex}" />
 										</c:url>
 										<a href="${deleteUrl}" class="btn spot btn-del">삭제</a>
@@ -108,20 +104,20 @@
 
 							<%-- 글이 없을 경우 --%>
 							<c:if test="${fn:length(resultList) == 0}">
-								<tr class="empty"><td colspan="6">검색 데이터가 없습니다.</td></tr>
+								<tr class="empty"><td colspan="7">검색 데이터가 없습니다.</td></tr>
 							</c:if>
 			           </tbody>
 			       </table>
 			   </div>
 			   
 				<div id="paging">
-					<c:url var="pageUrl" value="/admin/popup/selectList.do${_BASE_PARAM}"/>
+					<c:url var="pageUrl" value="/admin/banner/selectList.do${_BASE_PARAM}"/>
 					<c:set var="pagingParam"><c:out value="${pageUrl}"/></c:set>
 					<ui:pagination paginationInfo="${paginationInfo}" type="image" jsFunction="${pagingParam}"/>
 				</div>
 			</div>
 			<div class="btn-cont ar">
-		    	<a href="/admin/popup/regist.do" class="btn spot"><i class="ico-check-spot"></i> 등록</a>
+		    	<a href="/admin/banner/regist.do" class="btn spot"><i class="ico-check-spot"></i> 등록</a>
 			</div>
 		</div>
 	</div>
@@ -133,21 +129,7 @@
 	alert("${message}");
 </c:if>
 
-//미리보기
-$(".btn-preview").click(function(){
-	var href = $(this).attr("href"),
-		title = $(this).data("title"),
-		hlc = $(this).data("hlc"),
-		wlc = $(this).data("wlc"),
-		hsize = $(this).data("hsize"),
-		wsize = $(this).data("wsize");
-	
-	//팝업오픈
-	window.open(href, title, "top=" + hlc + ", left=" + wlc + ", width=" + wsize + ", height=" + hsize);
-	return false;
-});
-
-//팝업 삭제
+//배너 삭제
 $(".btn-del").click(function(){
 	if(!confirm("삭제하시겠습니까?")){
 		return false;

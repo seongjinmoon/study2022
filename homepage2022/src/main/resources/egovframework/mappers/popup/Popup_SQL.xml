@@ -82,7 +82,7 @@
 			, #{userId}
 			, NOW()
 			, #{userId} 
-		);
+		)
 	</insert>
 	
 	<select id="selectPopup" resultType="egovMap">
