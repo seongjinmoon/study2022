@@ -19,6 +19,11 @@
 	        	
 	        	<!-- 예약자 업로드 물리경로 -->
 	        	<entry key="rsvFileStorePath" value="${Globals.File}/upload/rsv"/>
+	        	
+	        	<!-- 배너 물리경로-->
+	        	<entry key="banner.fileStorePath" value="${Globals.File}/upload/banner/"/>
+	        	<!-- 배너 웹경로-->
+	        	<entry key="banner.fileStoreWebPath" value="/upload/banner/"/>
 	        </map>
 		</property>
 	</bean>

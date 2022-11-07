@@ -44,7 +44,10 @@
 	<!-- //site-body -->
 	
 	<%@ include file="/WEB-INF/jsp/main/inc/Footer.jsp"%>
+	<%--배너 --%>
+	<c:import url="/banner/bannerService.do" charEncoding="utf-8"/>
 	
+	<%--팝업 --%>
 	<c:import url="/popup/popupService.do" charEncoding="utf-8"/>
 
 <script>

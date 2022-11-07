@@ -81,6 +81,11 @@ public class PopupAdminController {
 	///팝업 등록하기
 	@RequestMapping("/admin/popup/insert.do")
 	public String insert(@ModelAttribute("searchVO") PopupVO popupVO, HttpServletRequest request, ModelMap model) throws Exception{
+		//이중 서브밋 방지 체크
+		if(request.getSession().getAttribute("sessionPopup") != null){
+			return "forward:/admin/popup/selectList.do";
+		}
+				
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 		if(user == null || EgovStringUtil.isEmpty(user.getId())){
 	    	model.addAttribute("message", "로그인 후 사용가능합니다.");
@@ -101,6 +106,11 @@ public class PopupAdminController {
 	//팝업 수정하기
 	@RequestMapping("/admin/popup/update.do")
 	public String update(@ModelAttribute("searchVO") PopupVO popupVO, HttpServletRequest request, ModelMap model) throws Exception{
+		//이중 서브밋 방지 체크
+		if(request.getSession().getAttribute("sessionPopup") != null){
+			return "forward:/admin/popup/selectList.do";
+		}
+				
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 		if(user == null || EgovStringUtil.isEmpty(user.getId())){
 	    	model.addAttribute("message", "로그인 후 사용가능합니다.");
@@ -121,6 +131,11 @@ public class PopupAdminController {
 	//팝업 삭제하기
 	@RequestMapping("/admin/popup/delete.do")
 	public String delete(@ModelAttribute("searchVO") PopupVO popupVO, HttpServletRequest request, ModelMap model) throws Exception{
+		//이중 서브밋 방지 체크
+		if(request.getSession().getAttribute("sessionPopup") != null){
+			return "forward:/admin/popup/selectList.do";
+		}
+				
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 		if(user == null || EgovStringUtil.isEmpty(user.getId())){
 	    	model.addAttribute("message", "로그인 후 사용가능합니다.");

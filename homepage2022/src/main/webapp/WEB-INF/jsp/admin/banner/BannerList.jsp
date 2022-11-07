@@ -74,12 +74,12 @@
 								<tr>
 									<td class="num"><c:out value="${paginationInfo.totalRecordCount - ((searchVO.pageIndex-1) * searchVO.pageUnit) - (status.count - 1)}" /></td>
 									<td class="tit"><c:out value="${result.bannerNm}"/></td>
-									<td>이미지</td>
+									<td><img src="${bannerWebPath}/${result.bannerImageFile}" alt="${result.bannerNm}" style="max-width:150px;"/></td>
 									<td>
 										<c:out value="${result.ntceBgnde}"/>~<br/>
 										<c:out value="${result.ntceEndde}"/>
 									</td>
-					               <td><c:out value="${result.liknUrl}"/></td>
+					               <td><a href="${result.liknUrl}" target="_blank" title="새창열기"><c:out value="${result.liknUrl}"/></a></td>
 					               <td>
 					               	<c:choose>
 					               		<c:when test="${result.popupTrgetAt eq 'Y'}">예</c:when>

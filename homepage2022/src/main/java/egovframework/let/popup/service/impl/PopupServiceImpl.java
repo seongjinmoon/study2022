@@ -88,10 +88,6 @@ public class PopupServiceImpl extends EgovAbstractServiceImpl implements PopupSe
 		if(!this.popupHash.containsKey("popupList") || !today.equals(cacheDay)) {
 			List<EgovMap> resultList = popupMapper.selectPopupList(vo);
 			if(resultList != null && resultList.size() > 0){
-				//날짜 저장
-				this.cacheMap.remove("today");
-				this.cacheMap.put("today", EgovDateUtil.getToday("yyyyMMdd"));
-				
 				for(int i = 0; i < resultList.size(); i++) {
 					long sl = Long.parseLong(resultList.get(i).get("ntceBgnde").toString().replaceAll("-", ""));
 		    		long el = Long.parseLong(resultList.get(i).get("ntceEndde").toString().replaceAll("-", ""));
@@ -101,8 +97,13 @@ public class PopupServiceImpl extends EgovAbstractServiceImpl implements PopupSe
 					}
 				}
 			}
+			//팝업 저장
 			this.popupHash.remove("popupList");
 			this.popupHash.put("popupList", popupList);
+			
+			//날짜 저장
+			this.cacheMap.remove("today");
+			this.cacheMap.put("today", EgovDateUtil.getToday("yyyyMMdd"));
 		}else {
 			popupList = this.popupHash.get("popupList");
 		}

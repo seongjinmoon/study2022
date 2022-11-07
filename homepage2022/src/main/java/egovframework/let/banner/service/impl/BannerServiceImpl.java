@@ -29,7 +29,11 @@ public class BannerServiceImpl extends EgovAbstractServiceImpl implements Banner
     @Resource(name = "bannerIdGnrService")
     private EgovIdGnrService idgenService;
     
+    //배너 리스트Hash
     private HashMap<String, List<EgovMap>> bannerHash = new HashMap<String, List<EgovMap>>();
+    
+    //변수관련 Hash
+    private HashMap<String, String> cacheMap = new HashMap<String, String>();
     
     //배너 목록 가져오기
   	public List<EgovMap> selectBannerList(BannerVO vo) throws Exception{
@@ -77,9 +81,11 @@ public class BannerServiceImpl extends EgovAbstractServiceImpl implements Banner
 	//서비스 배너 목록 가져오기
 	public List<EgovMap> selectBannerServiceList(BannerVO vo) throws Exception{
 		List<EgovMap> bannerList = new ArrayList<EgovMap>();
+		String cacheDay = this.cacheMap.get("today");
+		String today = EgovDateUtil.getToday("yyyyMMdd");
 		
 		//캐시 메모리에 배너목록이 있는지 체크
-		if(!this.bannerHash.containsKey("bannerList")) {
+		if(!this.bannerHash.containsKey("popupList") || !today.equals(cacheDay)) {
 			List<EgovMap> resultList = bannerMapper.selectBannerList(vo);
 			if(resultList != null && resultList.size() > 0){
 				for(int i = 0; i < resultList.size(); i++) {
@@ -91,8 +97,13 @@ public class BannerServiceImpl extends EgovAbstractServiceImpl implements Banner
 					}
 				}
 			}
+			//배너 저장
 			this.bannerHash.remove("bannerList");
 			this.bannerHash.put("bannerList", bannerList);
+			
+			//날짜 저장
+			this.cacheMap.remove("today");
+			this.cacheMap.put("today", EgovDateUtil.getToday("yyyyMMdd"));
 		}else {
 			bannerList = this.bannerHash.get("bannerList");
 		}

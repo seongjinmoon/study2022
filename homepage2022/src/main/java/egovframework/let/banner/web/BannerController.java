@@ -4,6 +4,7 @@ import java.util.List;
 
 import egovframework.let.banner.service.BannerService;
 import egovframework.let.banner.service.BannerVO;
+import egovframework.rte.fdl.property.EgovPropertyService;
 import egovframework.rte.psl.dataaccess.util.EgovMap;
 
 import javax.annotation.Resource;
@@ -20,6 +21,9 @@ public class BannerController {
 	@Resource(name = "bannerService")
     private BannerService bannerService;
 	
+	@Resource(name = "propertiesService")
+    protected EgovPropertyService propertyService;
+	
 	//배너 목록 가져오기
 	@RequestMapping("/banner/bannerService.do")
 	public String selectList(@ModelAttribute("searchVO") BannerVO bannerVO, HttpServletRequest request, ModelMap model) throws Exception{
@@ -28,6 +32,9 @@ public class BannerController {
 		
 		List<EgovMap> resultList = bannerService.selectBannerServiceList(bannerVO);
 		model.addAttribute("resultList", resultList);
+		
+		String bannerWebPath = propertyService.getString("banner.fileStoreWebPath");
+		model.addAttribute("bannerWebPath", bannerWebPath);
 		
 		return "banner/BannerService";
 	}

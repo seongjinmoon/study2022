@@ -1,12 +1,16 @@
 package egovframework.let.admin.banner.web;
 
 import java.util.List;
+import java.util.Map;
 
 import egovframework.com.cmm.LoginVO;
+import egovframework.com.cmm.service.FileVO;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import egovframework.let.banner.service.BannerService;
 import egovframework.let.banner.service.BannerVO;
 import egovframework.let.utl.fcc.service.EgovStringUtil;
+import egovframework.let.utl.fcc.service.FileMngUtil;
+import egovframework.rte.fdl.property.EgovPropertyService;
 import egovframework.rte.psl.dataaccess.util.EgovMap;
 import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
@@ -17,12 +21,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Controller
 public class BannerAdminController {
 	
 	@Resource(name = "bannerService")
     private BannerService bannerService;
+	
+	@Resource(name = "fileMngUtil")
+    private FileMngUtil fileUtil;
+	
+	@Resource(name = "propertiesService")
+    protected EgovPropertyService propertyService;
 	
 	//배너 목록 가져오기
 	@RequestMapping("/admin/banner/selectList.do")
@@ -53,7 +65,11 @@ public class BannerAdminController {
 		paginationInfo.setTotalRecordCount(totCnt);
 		model.addAttribute("paginationInfo", paginationInfo);
 		
-		return "admin/banner/PopupList";
+		//배너경로
+		String bannerWebPath = propertyService.getString("banner.fileStoreWebPath");
+		model.addAttribute("bannerWebPath", bannerWebPath);
+		
+		return "admin/banner/BannerList";
 	}
 	
 	//배너 등록/수정
@@ -73,14 +89,19 @@ public class BannerAdminController {
 		}
 		model.addAttribute("result", result);
 		
-		request.getSession().removeAttribute("sessionPopup");
+		request.getSession().removeAttribute("sessionBanner");
 		
-		return "admin/banner/PopupRegist";
+		return "admin/banner/BannerRegist";
 	}
 		
 	///배너 등록하기
 	@RequestMapping("/admin/banner/insert.do")
-	public String insert(@ModelAttribute("searchVO") BannerVO bannerVO, HttpServletRequest request, ModelMap model) throws Exception{
+	public String insert(final MultipartHttpServletRequest multiRequest, @ModelAttribute("searchVO") BannerVO bannerVO, HttpServletRequest request, ModelMap model) throws Exception{
+		//이중 서브밋 방지 체크
+		if(request.getSession().getAttribute("sessionBanner") != null){
+			return "forward:/admin/banner/selectList.do";
+		}
+				
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 		if(user == null || EgovStringUtil.isEmpty(user.getId())){
 	    	model.addAttribute("message", "로그인 후 사용가능합니다.");
@@ -89,18 +110,42 @@ public class BannerAdminController {
 			model.addAttribute("USER_INFO", user);
 			bannerVO.setUserId(user.getId());
 		}
+		
+		List<FileVO> result = null;
+		String bannerImage = "";
+		String bannerImageFile = "";
+
+		final Map<String, MultipartFile> files = multiRequest.getFileMap();
+
+		if(!files.isEmpty()) {
+			result = fileUtil.directParseFileInf(files, "BNR_", 0, "", "banner.fileStorePath");
+
+			if(result != null && result.size() > 0) {
+				FileVO vo = (FileVO)result.get(0);
+				bannerImage = vo.getOrignlFileNm();
+				bannerImageFile = vo.getStreFileNm();
+			}
+		}
+		
+		bannerVO.setBannerImage(bannerImage);
+		bannerVO.setBannerImageFile(bannerImageFile);
 		
 		bannerService.insertBanner(bannerVO);
 		
 		//이중 서브밋 방지
-		request.getSession().setAttribute("sessionPopup", bannerVO);
+		request.getSession().setAttribute("sessionBanner", bannerVO);
 		
-		return "forward:/admin/banner/selectList.do";
+		return "redirect:/admin/banner/selectList.do";
 	}
 	
 	//배너 수정하기
 	@RequestMapping("/admin/banner/update.do")
-	public String update(@ModelAttribute("searchVO") BannerVO bannerVO, HttpServletRequest request, ModelMap model) throws Exception{
+	public String update(final MultipartHttpServletRequest multiRequest, @ModelAttribute("searchVO") BannerVO bannerVO, HttpServletRequest request, ModelMap model) throws Exception{
+		//이중 서브밋 방지 체크
+		if(request.getSession().getAttribute("sessionBanner") != null){
+			return "forward:/admin/banner/selectList.do";
+		}
+				
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 		if(user == null || EgovStringUtil.isEmpty(user.getId())){
 	    	model.addAttribute("message", "로그인 후 사용가능합니다.");
@@ -110,10 +155,29 @@ public class BannerAdminController {
 			bannerVO.setUserId(user.getId());
 		}
 		
+		List<FileVO> result = null;
+		String bannerImage = "";
+		String bannerImageFile = "";
+
+		final Map<String, MultipartFile> files = multiRequest.getFileMap();
+
+		if(!files.isEmpty()) {
+			result = fileUtil.directParseFileInf(files, "BNR_", 0, "", "banner.fileStorePath");
+
+			if(result != null && result.size() > 0) {
+				FileVO vo = (FileVO)result.get(0);
+				bannerImage = vo.getOrignlFileNm();
+				bannerImageFile = vo.getStreFileNm();
+			}
+		}
+		
+		bannerVO.setBannerImage(bannerImage);
+		bannerVO.setBannerImageFile(bannerImageFile);
+		
 		bannerService.updateBanner(bannerVO);
 		
 		//이중 서브밋 방지
-		request.getSession().setAttribute("sessionPopup", bannerVO);
+		request.getSession().setAttribute("sessionBanner", bannerVO);
 				
 		return "forward:/admin/banner/selectList.do";
 	}
@@ -121,6 +185,11 @@ public class BannerAdminController {
 	//배너 삭제하기
 	@RequestMapping("/admin/banner/delete.do")
 	public String delete(@ModelAttribute("searchVO") BannerVO bannerVO, HttpServletRequest request, ModelMap model) throws Exception{
+		//이중 서브밋 방지 체크
+		if(request.getSession().getAttribute("sessionBanner") != null){
+			return "forward:/admin/banner/selectList.do";
+		}
+				
 		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
 		if(user == null || EgovStringUtil.isEmpty(user.getId())){
 	    	model.addAttribute("message", "로그인 후 사용가능합니다.");
@@ -133,7 +202,7 @@ public class BannerAdminController {
 		bannerService.deleteBanner(bannerVO);
 		
 		//이중 서브밋 방지
-		request.getSession().setAttribute("sessionPopup", bannerVO);
+		request.getSession().setAttribute("sessionBanner", bannerVO);
 				
 		return "forward:/admin/banner/selectList.do";
 	}

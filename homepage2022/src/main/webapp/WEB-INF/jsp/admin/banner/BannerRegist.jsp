@@ -28,11 +28,11 @@
 <body>
 
 <c:choose>
-	<c:when test="${not empty searchVO.popupId}">
-		<c:set var="actionUrl" value="/admin/popup/update.do"/>
+	<c:when test="${not empty searchVO.bannerId}">
+		<c:set var="actionUrl" value="/admin/banner/update.do"/>
 	</c:when>
 	<c:otherwise>
-		<c:set var="actionUrl" value="/admin/popup/insert.do"/>
+		<c:set var="actionUrl" value="/admin/banner/insert.do"/>
 	</c:otherwise>
 </c:choose>
 
@@ -47,29 +47,30 @@
 <div id="content">
 	<div class="container">
 		<div id="contents">
-			<form action="${actionUrl}" method="post" id="frm" name="frm" onsubmit="return regist()">
-				<input type="hidden" name="popupId" value="${result.popupId}"/>
+			<form action="${actionUrl}" method="post" id="frm" name="frm" onsubmit="return regist()" enctype="multipart/form-data">
+				<input type="hidden" name="bannerId" value="${result.bannerId}"/>
 				
 				<table class="chart2">
-			        <caption>팝업정보 작성</caption>
+			        <caption>배너정보 작성</caption>
 			        <colgroup>
 			            <col style="width:200px" />
 			            <col />
 			        </colgroup>
 			        <tbody>
 			            <tr>
-			                <th scope="row">팝업명</th>
+			                <th scope="row">배너명</th>
 			                <td>
-			                    <input type="text" id="popupTitleNm" name="popupTitleNm" title="제목입력" class="q3" value="<c:out value="${result.popupTitleNm}"/>"/>
+			                    <input type="text" id="bannerNm" name="bannerNm" title="제목입력" class="q3" value="<c:out value="${result.bannerNm}"/>"/>
 			                </td>
 			            </tr>
 			            <tr>
-			                <th scope="row">팝업유형</th>
+			                <th scope="row">배너이미지</th>
 			                <td>
-			                    <select id="sysTyCode" name="sysTyCode">
-			                		<option value="TYPE1">일반팝업</option>
-			                		<option value="TYPE2" <c:if test="${result.sysTyCode eq 'TYPE2'}">selected="selected"</c:if>>레이어팝업</option>
-			                	</select>
+			                	<input type="file" name="file"/>
+								<c:if test="${not empty searchVO.bannerId}">
+									<input type="hidden" name="bannerImage" value="${result.bannerImage}"/>
+									<input type="hidden" name="bannerImageFile" value="${result.bannerImageFile}"/>
+								</c:if>
 			                </td>
 			            </tr>
 			            <tr>
@@ -79,48 +80,37 @@
 			                    ~ <input type="text" id="ntceEndde" class="datepicker" name="ntceEndde" title="게시종료일" value="<c:out value="${result.ntceEndde}"/>" readonly="readonly"/>
 			                </td>
 			            </tr>
-			            <tr class="type1">
-			            	<th scope="row">팝업창위치(가로)</th>
+			            <tr>
+			                <th scope="row">링크URL</th>
 			                <td>
-			                    <input type="number" id="popupWlc" name="popupWlc" title="팝업창위치(가로)" value="<c:out value="${result.popupWlc}"/>"/>PX
+			                    <input type="text" id="liknUrl" name="liknUrl" title="링크URL" class="q3" value="<c:out value="${result.liknUrl}"/>"/>
 			                </td>
 			            </tr>
-			            <tr class="type1">
-			            	<th scope="row">팝업창위치(세로)</th>
+			            <tr>
+			                <th scope="row">새창보기여부</th>
 			                <td>
-			                    <input type="number" id="popupHlc" name="popupHlc" title="팝업창위치(세로)" value="<c:out value="${result.popupHlc}"/>"/>PX
-			                </td>
-			            </tr>
-			            <tr class="type1">
-			            	<th scope="row">팝업창사이즈(가로)</th>
-			                <td>
-			                    <input type="number" id="popupWsize" name="popupWsize" title="팝업창사이즈(가로)" value="<c:out value="${result.popupWsize}"/>"/>PX
-			                </td>
-			            </tr>
-			            <tr class="type1">
-			            	<th scope="row">팝업창사이즈(세로)</th>
-			                <td>
-			                    <input type="number" id="popupHsize" name="popupHsize" title="팝업창사이즈(세로)" value="<c:out value="${result.popupHsize}"/>"/>PX
+			                    <label>예 : <input type="checkbox" id="popupTrgetY" name="popupTrgetAt" value="Y" checked="checked"/></label>
+			                    <label>아니오 : <input type="checkbox" id="popupTrgetN" name="popupTrgetAt" value="N" <c:if test="${result.popupTrgetAt eq 'N'}">checked="checked"</c:if>/></label>
 			                </td>
 			            </tr>
 			            <tr>
 			                <th scope="row">내용</th>
 			                <td>
-			                    <textarea id="popupCn" name="popupCn" rows="15" title="내용입력"><c:out value="${result.popupCn}"/></textarea>
+			                    <textarea id="bannerDc" name="bannerDc" rows="15" title="내용입력"><c:out value="${result.bannerDc}"/></textarea>
 			                </td>
 			            </tr>
 			        </tbody>
 			    </table>
 				<div class="btn-cont ar">
 				    <c:choose>
-						<c:when test="${not empty searchVO.popupId}">
-							<c:url var="uptUrl" value="/admin/popup/update.do${_BASE_PARAM}">
-								<c:param name="popupId" value="${result.popupId}"/>
+						<c:when test="${not empty searchVO.bannerId}">
+							<c:url var="uptUrl" value="/admin/banner/update.do${_BASE_PARAM}">
+								<c:param name="bannerId" value="${result.bannerId}"/>
 							</c:url>
 							<a href="${uptUrl}" id="btn-reg" class="btn">수정</a>
 							
-							<c:url var="delUrl" value="/admin/popup/delete.do${_BASE_PARAM}">
-								<c:param name="popupId" value="${result.popupId}"/>
+							<c:url var="delUrl" value="/admin/banner/delete.do${_BASE_PARAM}">
+								<c:param name="bannerId" value="${result.bannerId}"/>
 							</c:url>
 				    		<a href="${delUrl}" id="btn-del" class="btn"><i class="ico-del"></i> 삭제</a>
 						</c:when>
@@ -128,7 +118,7 @@
 							<a href="#none" id="btn-reg" class="btn spot">등록</a>
 						</c:otherwise>
 					</c:choose>
-					<c:url var="listUrl" value="/admin/popup/selectList.do${_BASE_PARAM}"/>
+					<c:url var="listUrl" value="/admin/banner/selectList.do${_BASE_PARAM}"/>
 				    <a href="${listUrl}" class="btn">취소</a>
 				</div>
 			</form>
@@ -136,83 +126,7 @@
 	</div>
 </div>
 <!-- //content 끝 -->
-
-<script src="https://cdn.tiny.cloud/1/2xpj4d22abg4qy6hhumahoojfub87knrquwrq4mbmjj9saoo/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-<script>
-$(function(){
-    var plugins = [
-        "advlist", "autolink", "lists", "link", "image", "charmap", "print", "preview", "anchor",
-        "searchreplace", "visualblocks", "code", "fullscreen", "insertdatetime", "media", "table",
-        "paste", "code", "help", "wordcount", "save"
-    ];
-    var edit_toolbar = 'formatselect fontselect fontsizeselect |'
-               + ' forecolor backcolor |'
-               + ' bold italic underline strikethrough |'
-               + ' alignjustify alignleft aligncenter alignright |'
-               + ' bullist numlist |'
-               + ' table tabledelete |'
-               + ' link image';
-
-    tinymce.init({
-    	language: "ko_KR", //한글판으로 변경
-        selector: '#popupCn',
-        height: 500,
-        menubar: false,
-        plugins: plugins,
-        toolbar: edit_toolbar,
-        
-        /*** image upload ***/
-        image_title: true,
-        /* enable automatic uploads of images represented by blob or data URIs*/
-        automatic_uploads: true,
-        /*
-            URL of our upload handler (for more details check: https://www.tiny.cloud/docs/configure/file-image-upload/#images_upload_url)
-            images_upload_url: 'postAcceptor.php',
-            here we add custom filepicker only to Image dialog
-        */
-        file_picker_types: 'image',
-        /* and here's our custom image picker*/
-        file_picker_callback: function (cb, value, meta) {
-            var input = document.createElement('input');
-            input.setAttribute('type', 'file');
-            input.setAttribute('accept', 'image/*');
-
-            /*
-            Note: In modern browsers input[type="file"] is functional without
-            even adding it to the DOM, but that might not be the case in some older
-            or quirky browsers like IE, so you might want to add it to the DOM
-            just in case, and visually hide it. And do not forget do remove it
-            once you do not need it anymore.
-            */
-            input.onchange = function () {
-                var file = this.files[0];
-
-                var reader = new FileReader();
-                reader.onload = function () {
-                    /*
-                    Note: Now we need to register the blob in TinyMCEs image blob
-                    registry. In the next release this part hopefully won't be
-                    necessary, as we are looking to handle it internally.
-                    */
-                    var id = 'blobid' + (new Date()).getTime();
-                    var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
-                    var base64 = reader.result.split(',')[1];
-                    var blobInfo = blobCache.create(id, file, base64);
-                    blobCache.add(blobInfo);
-
-                    /* call the callback and populate the Title field with the file name */
-                    cb(blobInfo.blobUri(), { title: file.name });
-                };
-                reader.readAsDataURL(file);
-            };
-            input.click();
-        },
-        /*** image upload ***/
-        
-        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-    });
-});
-</script>        
+ 
 <script>
 $(document).ready(function(){
 	//datepicker
@@ -238,22 +152,11 @@ $(document).ready(function(){
 			return false;
 		}
 	});
-	
-	//팝업유형
-	$("#sysTyCode").change(function(){
-		var sysTyCode = $(this).val();
-		
-		if(sysTyCode == "TYPE1"){
-			$(".type1").show();
-		}else{
-			$(".type1").hide();
-		}
-	});
 });
 
 function regist(){
-	if(!$("#popupTitleNm").val()){
-		alert("팝업명을 입력해주세요.");
+	if(!$("#bannerNm").val()){
+		alert("배너명을 입력해주세요.");
 		return false;
 	}
 }
